@@ -36,7 +36,11 @@ function ArticlePortfolio({ dataWrapper, id }) {
             selectedItemCategoryId={selectedItemCategoryId}
             setSelectedItemCategoryId={setSelectedItemCategoryId}
             searchBarSlot={
-                <SearchBar value={searchQuery} onChange={setSearchQuery} onClear={handleClearSearch} />
+                <SearchBar
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                    onClear={handleClearSearch}
+                />
             }
         >
             <ArticlePortfolioItems
@@ -66,13 +70,23 @@ function _saveSearchState(uniqueId, query) {
  * @param {function} onClearSearch
  * @return {JSX.Element}
  */
-function ArticlePortfolioItems({ dataWrapper, selectedItemCategoryId, searchQuery, onClearSearch }) {
+function ArticlePortfolioItems({
+    dataWrapper,
+    selectedItemCategoryId,
+    searchQuery,
+    onClearSearch,
+}) {
     const constants = useConstants()
     const language = useLanguage()
     const viewport = useViewport()
 
-    const filteredItems = dataWrapper.getOrderedItemsFilteredBySearch(selectedItemCategoryId, searchQuery)
-    const customBreakpoint = viewport.getCustomBreakpoint(constants.SWIPER_BREAKPOINTS_FOR_THREE_SLIDES)
+    const filteredItems = dataWrapper.getOrderedItemsFilteredBySearch(
+        selectedItemCategoryId,
+        searchQuery
+    )
+    const customBreakpoint = viewport.getCustomBreakpoint(
+        constants.SWIPER_BREAKPOINTS_FOR_THREE_SLIDES
+    )
     const itemsPerRow = customBreakpoint?.slidesPerView || 1
     const itemsPerRowClass = `article-portfolio-items-${itemsPerRow}-per-row`
 
@@ -157,7 +171,9 @@ function ArticlePortfolioItemTitle({ itemWrapper }) {
         <div className="article-portfolio-item-title">
             <h5
                 className="article-portfolio-item-title-main"
-                dangerouslySetInnerHTML={{ __html: itemWrapper.locales.title || itemWrapper.placeholder }}
+                dangerouslySetInnerHTML={{
+                    __html: itemWrapper.locales.title || itemWrapper.placeholder,
+                }}
             />
             <div
                 className="article-portfolio-item-title-category text-2"
