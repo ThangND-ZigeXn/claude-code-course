@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 nav.nav-link-pills {
     display: flex;
@@ -37,8 +37,12 @@ a.nav-link-pills-link {
     }
 
     @include media-breakpoint-down(sm) {
-        i {font-size: 1.05rem;}
-        span {display: none;}
+        i {
+            font-size: 1.05rem;
+        }
+        span {
+            display: none;
+        }
     }
 }
 
@@ -56,18 +60,18 @@ a.nav-link-pills-link:hover {
 }
 
 a.nav-link-pills-link-active {
-    background-color: var(--theme-mobile-nav-selected-background)!important;
+    background-color: var(--theme-mobile-nav-selected-background) !important;
     border-top-color: var(--theme-mobile-nav-selected-border);
     user-select: none;
     pointer-events: none;
 
     i {
-        color: var(--theme-mobile-nav-selected)!important;
+        color: var(--theme-mobile-nav-selected) !important;
         opacity: 1;
     }
 
     span {
-        color: var(--theme-mobile-nav-selected)!important;
+        color: var(--theme-mobile-nav-selected) !important;
         opacity: 1;
     }
 }

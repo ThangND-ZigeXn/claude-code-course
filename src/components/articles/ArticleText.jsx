@@ -1,7 +1,7 @@
-import "./ArticleText.scss"
-import React, {useEffect, useState} from 'react'
-import Article from "/src/components/articles/base/Article.jsx"
-import AvatarView from "/src/components/generic/AvatarView.jsx"
+import './ArticleText.scss'
+import React, { useEffect, useState } from 'react'
+import Article from '/src/components/articles/base/Article.jsx'
+import AvatarView from '/src/components/generic/AvatarView.jsx'
 
 /**
  * @param {ArticleDataWrapper} dataWrapper
@@ -13,14 +13,18 @@ function ArticleText({ dataWrapper, id }) {
     const [selectedItemCategoryId, setSelectedItemCategoryId] = useState(null)
 
     return (
-        <Article id={dataWrapper.uniqueId}
-                 type={Article.Types.SPACING_DEFAULT}
-                 dataWrapper={dataWrapper}
-                 className={`article-text`}
-                 selectedItemCategoryId={selectedItemCategoryId}
-                 setSelectedItemCategoryId={setSelectedItemCategoryId}>
-            <ArticleTextItems dataWrapper={dataWrapper}
-                              selectedItemCategoryId={selectedItemCategoryId}/>
+        <Article
+            id={dataWrapper.uniqueId}
+            type={Article.Types.SPACING_DEFAULT}
+            dataWrapper={dataWrapper}
+            className={`article-text`}
+            selectedItemCategoryId={selectedItemCategoryId}
+            setSelectedItemCategoryId={setSelectedItemCategoryId}
+        >
+            <ArticleTextItems
+                dataWrapper={dataWrapper}
+                selectedItemCategoryId={selectedItemCategoryId}
+            />
         </Article>
     )
 }
@@ -37,8 +41,7 @@ function ArticleTextItems({ dataWrapper, selectedItemCategoryId }) {
     return (
         <div className={`article-text-items`}>
             {filteredItems.map((itemWrapper, key) => (
-                <ArticleTextItem itemWrapper={itemWrapper} 
-                                      key={key}/>
+                <ArticleTextItem itemWrapper={itemWrapper} key={key} />
             ))}
         </div>
     )
@@ -50,22 +53,26 @@ function ArticleTextItems({ dataWrapper, selectedItemCategoryId }) {
  * @constructor
  */
 function ArticleTextItem({ itemWrapper }) {
-    const positioningClass = itemWrapper.id % 2 === 0 ?
-        `article-text-item-reverse` :
-        ``
+    const positioningClass = itemWrapper.id % 2 === 0 ? `article-text-item-reverse` : ``
 
     return (
         <div className={`article-text-item ${positioningClass}`}>
             <div className={`article-text-avatar-view-wrapper`}>
-                <AvatarView className={`article-text-avatar-view`}
-                            src={itemWrapper.img}
-                            faIcon={itemWrapper.faIconWithFallback}
-                            style={itemWrapper.faIconStyle}
-                            alt={itemWrapper.imageAlt}/>
+                <AvatarView
+                    className={`article-text-avatar-view`}
+                    src={itemWrapper.img}
+                    faIcon={itemWrapper.faIconWithFallback}
+                    style={itemWrapper.faIconStyle}
+                    alt={itemWrapper.imageAlt}
+                />
             </div>
 
-            <div className={`article-text-excerpt last-p-no-margin text-3`}
-                 dangerouslySetInnerHTML={{__html: itemWrapper.locales.text || itemWrapper.placeholder}}/>
+            <div
+                className={`article-text-excerpt last-p-no-margin text-3`}
+                dangerouslySetInnerHTML={{
+                    __html: itemWrapper.locales.text || itemWrapper.placeholder,
+                }}
+            />
         </div>
     )
 }

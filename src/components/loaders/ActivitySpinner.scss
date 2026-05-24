@@ -1,10 +1,10 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 #activity-spinner {
     position: fixed;
     z-index: $z-index-activity-spinner;
 
-    background-color: rgba(0, 0, 0, 0.90);
+    background-color: rgba(0, 0, 0, 0.9);
     width: 100%;
     height: 100vh;
     height: 100dvh;
@@ -18,12 +18,16 @@
 
 .activity-spinner {
     --dimensions: 120px;
-    @include media-breakpoint-down(xl) {--dimensions: 100px;}
-    @include media-breakpoint-down(md) {--dimensions: 80px;}
+    @include media-breakpoint-down(xl) {
+        --dimensions: 100px;
+    }
+    @include media-breakpoint-down(md) {
+        --dimensions: 80px;
+    }
 
     width: var(--dimensions);
     height: var(--dimensions);
-    font-size: calc(var(--dimensions)/1.25);
+    font-size: calc(var(--dimensions) / 1.25);
 
     opacity: 0.75;
     color: white;
@@ -31,6 +35,6 @@
 }
 
 div.activity-spinner-message {
-    color: #BBB;
+    color: #bbb;
     padding: 0 30px;
 }

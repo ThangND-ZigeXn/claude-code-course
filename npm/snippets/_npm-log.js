@@ -7,12 +7,12 @@ export const useNpmLogger = () => {
      * @enum
      */
     const LogTypes = {
-        DEFAULT: "log_type_default",
-        ERROR: "log_type_error",
-        WARNING: "log_type_warning",
-        SKIP: "log_type_skip",
-        SUCCESS: "log_type_success",
-        SUCCESS_FINISHED: "log_type_success_finished",
+        DEFAULT: 'log_type_default',
+        ERROR: 'log_type_error',
+        WARNING: 'log_type_warning',
+        SKIP: 'log_type_skip',
+        SUCCESS: 'log_type_success',
+        SUCCESS_FINISHED: 'log_type_success_finished',
     }
 
     /**
@@ -20,12 +20,12 @@ export const useNpmLogger = () => {
      * @dictionary
      */
     const LOG_TYPES_MAPPING = {
-        [LogTypes.DEFAULT]:             { emoji: "⬛"  },
-        [LogTypes.WARNING]:             { emoji: "⚠️"  },
-        [LogTypes.SKIP]:                { emoji: "⏭️"  },
-        [LogTypes.SUCCESS]:             { emoji: "✅"  },
-        [LogTypes.SUCCESS_FINISHED]:    { emoji: "🎉"  },
-        [LogTypes.ERROR]:               { emoji: "❌"  },
+        [LogTypes.DEFAULT]: { emoji: '⬛' },
+        [LogTypes.WARNING]: { emoji: '⚠️' },
+        [LogTypes.SKIP]: { emoji: '⏭️' },
+        [LogTypes.SUCCESS]: { emoji: '✅' },
+        [LogTypes.SUCCESS_FINISHED]: { emoji: '🎉' },
+        [LogTypes.ERROR]: { emoji: '❌' },
     }
 
     /**
@@ -39,6 +39,6 @@ export const useNpmLogger = () => {
 
     return {
         LogTypes,
-        log
+        log,
     }
 }

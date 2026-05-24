@@ -3,8 +3,8 @@
  * @description Global presets for the template.
  */
 
-@import "themes/variables-theme-dark";
-@import "themes/variables-theme-light";
+@import 'themes/variables-theme-dark';
+@import 'themes/variables-theme-light';
 
 /** Overriding Bootstrap's contrast ratio. **/
 $min-contrast-ratio: 1.5 !default;
@@ -15,7 +15,7 @@ $headings-font-family: 'Orbitron', sans-serif;
 
 /** Static Colors **/
 $loader-background: #111111;
-$loader-contrast: #FFFFFF;
+$loader-contrast: #ffffff;
 $primary: #36ad59;
 
 /** Z-Indexing **/

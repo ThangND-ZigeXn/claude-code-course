@@ -7,19 +7,16 @@ $theme-contrast-steps: (1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 12.5%, 15%, 17.
 
 @mixin build-theme(
     $isDarkMode,
-
     $theme-primary,
     $theme-secondary,
     $theme-dark,
     $theme-danger,
     $theme-muted,
-
     $theme-background,
     $theme-background-contrast,
     $theme-background-contrast-darken,
     $theme-texts,
     $theme-texts-inv,
-
     $theme-mobile-nav-background,
     $theme-mobile-nav,
     $theme-mobile-nav-border,
@@ -28,7 +25,6 @@ $theme-contrast-steps: (1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 12.5%, 15%, 17.
     $theme-mobile-nav-selected-background,
     $theme-mobile-nav-selected,
     $theme-mobile-nav-selected-border,
-
     $theme-section-background,
     $theme-card-background,
     $theme-pop-ups-background,
@@ -36,7 +32,6 @@ $theme-contrast-steps: (1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 12.5%, 15%, 17.
     $theme-info-badge-background,
     $theme-info-badge,
     $theme-empty,
-
     $theme-standard-borders,
     $theme-scrollbar-track,
     $theme-scrollbar-thumb
@@ -76,7 +71,7 @@ $theme-contrast-steps: (1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 12.5%, 15%, 17.
     --theme-scrollbar-track: #{$theme-scrollbar-track};
     --theme-scrollbar-thumb: #{$theme-scrollbar-thumb};
 
-    @if($isDarkMode) {
+    @if ($isDarkMode) {
         --theme-links: #{lighten($theme-primary, 5%)};
         --theme-links-hover: #{lighten($theme-primary, 10%)};
 
@@ -96,8 +91,7 @@ $theme-contrast-steps: (1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 12.5%, 15%, 17.
         --theme-opacity-border-light: #{rgba($theme-secondary, 0.05)};
         --theme-opacity-border-accent: #{rgba($theme-secondary, 0.35)};
         --theme-invert-filter: 1;
-    }
-    @else {
+    } @else {
         --theme-links: #{darken($theme-primary, 5%)};
         --theme-links-hover: #{darken($theme-primary, 10%)};
 
@@ -122,27 +116,31 @@ $theme-contrast-steps: (1%, 2%, 3%, 4%, 5%, 6%, 7%, 8%, 9%, 10%, 12.5%, 15%, 17.
     @for $i from 1 through 16 {
         --theme-standard-borders-#{$i}: #{rgba($theme-standard-borders, calc($i/16))};
 
-        @if($isDarkMode) {
-            --theme-background-darken-#{$i}: #{darken($theme-background, nth($theme-contrast-steps, $i))};
-            --theme-texts-#{$i}: #{darken($theme-texts, calc(nth($theme-contrast-steps, $i)*2))};
+        @if ($isDarkMode) {
+            --theme-background-darken-#{$i}: #{darken(
+                    $theme-background,
+                    nth($theme-contrast-steps, $i)
+                )};
+            --theme-texts-#{$i}: #{darken($theme-texts, calc(nth($theme-contrast-steps, $i) * 2))};
             --theme-primary-#{$i}: #{darken($theme-primary, nth($theme-contrast-steps, $i))};
             --theme-secondary-#{$i}: #{lighten($theme-secondary, nth($theme-contrast-steps, $i))};
-        }
-        @else {
-            --theme-background-darken-#{$i}: #{lighten($theme-background, nth($theme-contrast-steps, $i))};
-            --theme-texts-#{$i}: #{lighten($theme-texts, calc(nth($theme-contrast-steps, $i)*2))};
+        } @else {
+            --theme-background-darken-#{$i}: #{lighten(
+                    $theme-background,
+                    nth($theme-contrast-steps, $i)
+                )};
+            --theme-texts-#{$i}: #{lighten($theme-texts, calc(nth($theme-contrast-steps, $i) * 2))};
             --theme-primary-#{$i}: #{lighten($theme-primary, nth($theme-contrast-steps, $i))};
             --theme-secondary-#{$i}: #{darken($theme-secondary, nth($theme-contrast-steps, $i))};
         }
     }
 
-    @if($isDarkMode) {
+    @if ($isDarkMode) {
         --theme-texts-light: var(--theme-texts-5);
         --theme-texts-light-2: var(--theme-secondary);
         --theme-texts-light-3: #{darken($theme-secondary, 10%)};
         --theme-texts-light-4: #{darken($theme-secondary, 15%)};
-    }
-    @else {
+    } @else {
         --theme-texts-light: var(--theme-texts-5);
         --theme-texts-light-2: var(--theme-secondary);
         --theme-texts-light-3: #{lighten($theme-secondary, 5%)};

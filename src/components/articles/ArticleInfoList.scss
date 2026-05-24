@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-info-list-items {
     --grid-row-gap: 10px;
@@ -49,9 +49,9 @@ div.article-info-list-item {
 
     &-avatar {
         min-width: calc(var(--avatar-size) * 1.2);
-        font-size: calc(var(--avatar-size) / 2)!important;
-        background-color: var(--theme-dark)!important;
-        color: var(--theme-texts)!important;
+        font-size: calc(var(--avatar-size) / 2) !important;
+        background-color: var(--theme-dark) !important;
+        color: var(--theme-texts) !important;
         border-radius: $standard-border-radius 0 0 $standard-border-radius;
     }
 
@@ -64,13 +64,13 @@ div.article-info-list-item {
 
     div.article-info-list-item-info-title {
         font-weight: bold;
-        color: var(--theme-texts-light)!important;
+        color: var(--theme-texts-light) !important;
         margin-bottom: 4px;
     }
 
     div.article-info-list-item-info-text {
         display: inline;
-        color: var(--theme-texts-light-2)!important;
+        color: var(--theme-texts-light-2) !important;
         margin-bottom: 0;
     }
 }
@@ -78,9 +78,11 @@ div.article-info-list-item {
 /** ------------- HOVER ------------------- **/
 div.article-info-list-item-hovered {
     div.article-info-list-item-avatar {
-        background-color: var(--theme-primary)!important;
-        color: var(--theme-texts-inv)!important;
-        transition: 0.2s background-color ease-out, 0.2s background-color ease-out;
+        background-color: var(--theme-primary) !important;
+        color: var(--theme-texts-inv) !important;
+        transition:
+            0.2s background-color ease-out,
+            0.2s background-color ease-out;
     }
 }
 

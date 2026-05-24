@@ -24,13 +24,11 @@ export const _numberUtils = {
      */
     forceIntoBounds: (number, min, max, defaultValue) => {
         const toNumber = Number(number)
-        if(number === null || number === undefined || isNaN(toNumber))
-            return defaultValue || min
+        if (number === null || number === undefined || isNaN(toNumber)) return defaultValue || min
 
-        if(toNumber > max) return defaultValue || max
-        else if(toNumber < min) return defaultValue || min
+        if (toNumber > max) return defaultValue || max
+        else if (toNumber < min) return defaultValue || min
         else return toNumber
-
     },
 
     /**
@@ -50,5 +48,5 @@ export const _numberUtils = {
     random: (min, max, flipSign) => {
         const value = Math.floor(Math.random() * (max - min + 1)) + min
         return flipSign && Math.random() < 0.5 ? -value : value
-    }
+    },
 }

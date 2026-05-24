@@ -14,7 +14,7 @@ div.accordion {
     button.accordion-button {
         background-color: var(--theme-dark);
         color: var(--theme-texts-light-2);
-        font-family: $font-family-base!important;
+        font-family: $font-family-base !important;
         transition: none;
 
         &:hover {
@@ -23,7 +23,8 @@ div.accordion {
             opacity: 1;
         }
 
-        div, span {
+        div,
+        span {
             user-select: none;
             pointer-events: none;
         }
@@ -70,61 +71,62 @@ button.btn {
     border-radius: $standard-border-radius;
 
     &:focus {
-        box-shadow: none!important;
-        outline: none!important;
+        box-shadow: none !important;
+        outline: none !important;
         transition: none;
     }
 
-    &-primary, &-secondary {
+    &-primary,
+    &-secondary {
         border: 0;
     }
 
     &-primary {
-        background-color: var(--theme-primary)!important;
-        color: var(--theme-texts-inv)!important;
+        background-color: var(--theme-primary) !important;
+        color: var(--theme-texts-inv) !important;
 
         &:hover {
-            background-color: var(--theme-links-hover)!important;
+            background-color: var(--theme-links-hover) !important;
         }
     }
 
     &-secondary {
-        background-color: var(--theme-secondary)!important;
-        color: var(--theme-texts-inv)!important;
+        background-color: var(--theme-secondary) !important;
+        color: var(--theme-texts-inv) !important;
         opacity: 1;
 
         &:hover {
-            opacity: 1!important;
-            background-color: var(--theme-texts-4)!important;
+            opacity: 1 !important;
+            background-color: var(--theme-texts-4) !important;
         }
     }
 
     &-contrast {
-        background-color: var(--theme-texts-4)!important;
-        color: var(--theme-texts-inv)!important;
+        background-color: var(--theme-texts-4) !important;
+        color: var(--theme-texts-inv) !important;
         opacity: 1;
 
         &:hover {
-            opacity: 1!important;
-            background-color: var(--theme-texts-8)!important;
+            opacity: 1 !important;
+            background-color: var(--theme-texts-8) !important;
         }
     }
 
     &-link-default {
-        background-color: transparent!important;
-        color: var(--theme-texts)!important;
-        border: 0!important;
+        background-color: transparent !important;
+        color: var(--theme-texts) !important;
+        border: 0 !important;
         &:hover {
-            color: var(--theme-primary-10)!important;
+            color: var(--theme-primary-10) !important;
         }
     }
 
     &-link-default-inv {
-        background-color: transparent!important;
-        color: var(--theme-texts-inv)!important;
-        border: 0!important;
+        background-color: transparent !important;
+        color: var(--theme-texts-inv) !important;
+        border: 0 !important;
         &:hover {
-            color: var(--theme-texts-inv-10)!important;
+            color: var(--theme-texts-inv-10) !important;
         }
     }
 
@@ -137,11 +139,13 @@ button.btn {
     &-selected {
         user-select: none;
         pointer-events: none;
-        background-color: var(--theme-texts)!important;
-        color: var(--theme-texts-inv)!important;
-        &:hover, &:focus, &:active {
-            background-color: var(--theme-texts)!important;
-            color: var(--theme-texts-inv)!important;
+        background-color: var(--theme-texts) !important;
+        color: var(--theme-texts-inv) !important;
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: var(--theme-texts) !important;
+            color: var(--theme-texts-inv) !important;
         }
     }
 }
@@ -153,17 +157,18 @@ div.card {
     border-radius: $standard-border-radius;
     padding: 0;
 
-    &-header, &-footer {
+    &-header,
+    &-footer {
         background-color: transparent;
         padding: 15px 20px 16px;
     }
 
     &-header {
-        border-bottom: 1px solid var(--theme-card-background-accent)
+        border-bottom: 1px solid var(--theme-card-background-accent);
     }
 
     &-footer {
-        border-top: 1px solid var(--theme-card-background-accent)
+        border-top: 1px solid var(--theme-card-background-accent);
     }
 }
 
@@ -182,7 +187,7 @@ div.dropdown {
         color: var(--theme-texts);
 
         &:after {
-            content: none!important;
+            content: none !important;
         }
     }
 
@@ -208,7 +213,8 @@ div.dropdown {
             border-bottom: 1px solid var(--theme-standard-borders-5);
         }
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             background-color: var(--theme-primary);
             color: var(--theme-texts-inv);
             i.fa-icon {
@@ -218,7 +224,7 @@ div.dropdown {
     }
 
     a.dropdown-item-no-border {
-        border-bottom: 0!important;
+        border-bottom: 0 !important;
     }
 }
 

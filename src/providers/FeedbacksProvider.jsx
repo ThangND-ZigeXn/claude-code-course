@@ -4,17 +4,17 @@
  * @description This provider is responsible for managing feedbacks, modals and UI interactions.
  */
 
-import React, {createContext, useContext, useEffect, useState} from 'react'
-import {useUtils} from "/src/hooks/utils.js"
-import {useScheduler} from "/src/hooks/scheduler.js"
-import {useLanguage} from "/src/providers/LanguageProvider.jsx"
-import {useViewport} from "/src/providers/ViewportProvider.jsx"
-import ActivitySpinner from "/src/components/loaders/ActivitySpinner.jsx"
-import MouseLayer from "/src/components/mouse/MouseLayer.jsx"
-import NotificationsLayer from "/src/components/notifications/NotificationsLayer.jsx"
-import YoutubeVideoModal from "/src/components/modals/YoutubeVideoModal.jsx"
-import ConfirmationWindowModal from "/src/components/modals/ConfirmationWindowModal.jsx"
-import GalleryModal from "/src/components/modals/GalleryModal.jsx"
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useUtils } from '/src/hooks/utils.js'
+import { useScheduler } from '/src/hooks/scheduler.js'
+import { useLanguage } from '/src/providers/LanguageProvider.jsx'
+import { useViewport } from '/src/providers/ViewportProvider.jsx'
+import ActivitySpinner from '/src/components/loaders/ActivitySpinner.jsx'
+import MouseLayer from '/src/components/mouse/MouseLayer.jsx'
+import NotificationsLayer from '/src/components/notifications/NotificationsLayer.jsx'
+import YoutubeVideoModal from '/src/components/modals/YoutubeVideoModal.jsx'
+import ConfirmationWindowModal from '/src/components/modals/ConfirmationWindowModal.jsx'
+import GalleryModal from '/src/components/modals/GalleryModal.jsx'
 
 function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
     const scheduler = useScheduler()
@@ -34,30 +34,31 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
     /** @listens canHaveAnimatedCursor|viewport.innerWidth **/
     useEffect(() => {
         setAnimatedCursorEnabled(
-            canHaveAnimatedCursor &&
-            !utils.device.isTouchDevice() &&
-            viewport.isBreakpoint("md")
+            canHaveAnimatedCursor && !utils.device.isTouchDevice() && viewport.isBreakpoint('md')
         )
     }, [canHaveAnimatedCursor, viewport.innerWidth])
 
     const setActivitySpinnerVisible = (visible, activityId, message) => {
-        setSpinnerActivities(prev => {
+        setSpinnerActivities((prev) => {
             if (visible) {
-                if (prev.some(activity => activity.id === activityId)) return prev
+                if (prev.some((activity) => activity.id === activityId)) return prev
                 return [...prev, { id: activityId, message }]
-            }
-            else {
-                return prev.filter(activity => activity.id !== activityId)
+            } else {
+                return prev.filter((activity) => activity.id !== activityId)
             }
         })
     }
 
     const showActivitySpinnerFor = (milliseconds, activityId, message) => {
-        scheduler.clearAllWithTag("spinner-auto-interval")
+        scheduler.clearAllWithTag('spinner-auto-interval')
         setActivitySpinnerVisible(true, activityId, message)
-        scheduler.schedule(() => {
-            setActivitySpinnerVisible(false, activityId)
-        }, milliseconds, "spinner-auto-interval")
+        scheduler.schedule(
+            () => {
+                setActivitySpinnerVisible(false, activityId)
+            },
+            milliseconds,
+            'spinner-auto-interval'
+        )
     }
 
     const isShowingActivitySpinner = () => {
@@ -67,13 +68,14 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
     const toggleAnimatedCursorActive = (withNotification) => {
         const newValue = !animatedCursorActive
         setAnimatedCursorActive(newValue)
-        if(!withNotification)
-            return
+        if (!withNotification) return
 
         displayNotification(
-            language.getString("magic_cursor"),
-            language.getString(newValue ? "activate_magic_cursor_message" : "deactivate_magic_cursor_message"),
-            "default"
+            language.getString('magic_cursor'),
+            language.getString(
+                newValue ? 'activate_magic_cursor_message' : 'deactivate_magic_cursor_message'
+            ),
+            'default'
         )
     }
 
@@ -81,7 +83,7 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
         setDisplayingNotification({
             type: type,
             title: title,
-            message: message
+            message: message,
         })
     }
 
@@ -93,7 +95,7 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
         setDisplayingYoutubeVideo({
             url: url,
             title: title,
-            description: description
+            description: description,
         })
     }
 
@@ -105,7 +107,7 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
         setDisplayingGallery({
             images: images,
             type: type,
-            title: title
+            title: title,
         })
     }
 
@@ -113,7 +115,15 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
         setDisplayingGallery(null)
     }
 
-    const showConfirmationDialog = (title, message, faIcon, onConfirm, confirmLabel, onCancel, cancelLabel) => {
+    const showConfirmationDialog = (
+        title,
+        message,
+        faIcon,
+        onConfirm,
+        confirmLabel,
+        onCancel,
+        cancelLabel
+    ) => {
         setPendingConfirmation({
             title: title,
             message: message,
@@ -121,7 +131,7 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
             onConfirm: onConfirm,
             confirmLabel: confirmLabel,
             onCancel: onCancel,
-            cancelLabel: cancelLabel
+            cancelLabel: cancelLabel,
         })
     }
 
@@ -135,47 +145,57 @@ function FeedbacksProvider({ children, canHaveAnimatedCursor }) {
     }
 
     return (
-        <FeedbacksContext.Provider value={{
-            setActivitySpinnerVisible,
-            showActivitySpinnerFor,
-            isShowingActivitySpinner,
+        <FeedbacksContext.Provider
+            value={{
+                setActivitySpinnerVisible,
+                showActivitySpinnerFor,
+                isShowingActivitySpinner,
 
-            animatedCursorEnabled,
-            animatedCursorActive,
-            setAnimatedCursorActive,
-            setAnimatedCursorLocked,
-            toggleAnimatedCursorActive,
+                animatedCursorEnabled,
+                animatedCursorActive,
+                setAnimatedCursorActive,
+                setAnimatedCursorLocked,
+                toggleAnimatedCursorActive,
 
-            displayNotification,
-            killNotification,
+                displayNotification,
+                killNotification,
 
-            displayYoutubeVideo,
-            closeYoutubeVideo,
+                displayYoutubeVideo,
+                closeYoutubeVideo,
 
-            displayGallery,
-            closeGallery,
+                displayGallery,
+                closeGallery,
 
-            showConfirmationDialog,
-            isBlockedByOverlay
-        }}>
-            <ActivitySpinner activities={spinnerActivities}
-                             defaultMessage={language.getString("loading")}/>
+                showConfirmationDialog,
+                isBlockedByOverlay,
+            }}
+        >
+            <ActivitySpinner
+                activities={spinnerActivities}
+                defaultMessage={language.getString('loading')}
+            />
 
-            <MouseLayer active={animatedCursorEnabled && animatedCursorActive}
-                        hidden={animatedCursorLocked}
-                        isBlockedByOverlay={isBlockedByOverlay()}/>
+            <MouseLayer
+                active={animatedCursorEnabled && animatedCursorActive}
+                hidden={animatedCursorLocked}
+                isBlockedByOverlay={isBlockedByOverlay()}
+            />
 
-            <NotificationsLayer target={displayingNotification}
-                                onNotificationDismissed={killNotification}/>
+            <NotificationsLayer
+                target={displayingNotification}
+                onNotificationDismissed={killNotification}
+            />
 
-            <YoutubeVideoModal target={displayingYoutubeVideo}
-                               onDismiss={closeYoutubeVideo}/>
+            <YoutubeVideoModal target={displayingYoutubeVideo} onDismiss={closeYoutubeVideo} />
 
-            <ConfirmationWindowModal target={pendingConfirmation}
-                                     onDismiss={() => {setPendingConfirmation(null)}}/>
+            <ConfirmationWindowModal
+                target={pendingConfirmation}
+                onDismiss={() => {
+                    setPendingConfirmation(null)
+                }}
+            />
 
-            <GalleryModal target={displayingGallery}
-                          onDismiss={closeGallery}/>
+            <GalleryModal target={displayingGallery} onDismiss={closeGallery} />
 
             {children}
         </FeedbacksContext.Provider>

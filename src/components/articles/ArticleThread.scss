@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-thread-items {
     --min-gap-between-items: 50px;
@@ -29,11 +29,11 @@ div.article-thread-items:before {
     position: absolute;
     top: 0;
     bottom: 0;
-    content: "";
+    content: '';
 
     width: var(--line-width);
     background-color: var(--theme-timeline-line-color);
-    left: calc(var(--circle-size)/2 - var(--line-width)/2);
+    left: calc(var(--circle-size) / 2 - var(--line-width) / 2);
     margin-top: calc(var(--circle-margin-top));
 }
 
@@ -53,7 +53,7 @@ div.article-thread-item-circle {
     min-height: var(--circle-size);
     width: var(--circle-size);
     height: var(--circle-size);
-    font-size: calc(var(--circle-size)*0.5);
+    font-size: calc(var(--circle-size) * 0.5);
     margin-top: calc(var(--circle-margin-top));
 
     background-color: var(--theme-timeline-line-color);
@@ -66,9 +66,9 @@ div.article-thread-item-circle {
 }
 
 div.article-thread-item-content {
-    margin-left: var(--gap-between-circle-and-content)!important;
-    padding: 22px 26px 24px!important;
+    margin-left: var(--gap-between-circle-and-content) !important;
+    padding: 22px 26px 24px !important;
     @include media-breakpoint-down(sm) {
-        padding: 20px 22px 24px!important;
+        padding: 20px 22px 24px !important;
     }
 }

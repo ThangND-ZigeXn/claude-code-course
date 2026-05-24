@@ -1,6 +1,6 @@
-import "./LayoutImageCache.scss"
-import React, {useEffect, useState} from 'react'
-import {useUtils} from "/src/hooks/utils.js"
+import './LayoutImageCache.scss'
+import React, { useEffect, useState } from 'react'
+import { useUtils } from '/src/hooks/utils.js'
 
 function LayoutImageCache({ profile, settings, sections }) {
     const utils = useUtils()
@@ -8,38 +8,40 @@ function LayoutImageCache({ profile, settings, sections }) {
     const imagesToCache = [
         profile.profileCardLogoUrl,
         profile.profileCardLogoUrlLight,
-        profile.profilePictureUrl
+        profile.profilePictureUrl,
     ]
 
     const settingsImagesToCache = settings.imagesToCache || []
-    for(const image of settingsImagesToCache) {
+    for (const image of settingsImagesToCache) {
         imagesToCache.push(image)
     }
 
-    for(const language of settings.supportedLanguages) {
+    for (const language of settings.supportedLanguages) {
         imagesToCache.push(language.flagUrl)
     }
 
-    for(const section of sections) {
+    for (const section of sections) {
         const articles = section.data?.articles || []
-        articles.forEach(article => {
+        articles.forEach((article) => {
             const items = article.items || []
-            items.forEach(item => {
+            items.forEach((item) => {
                 imagesToCache.push(item.img)
             })
         })
     }
 
-    const filtered = imagesToCache.filter(image => image && !image.includes('{theme}'))
+    const filtered = imagesToCache.filter((image) => image && !image.includes('{theme}'))
 
     return (
         <div className={`layout-image-cache`}>
             {filtered.map((src, key) => (
-                <img key={key}
-                     src={utils.file.resolvePath(src)}
-                     className={`cache-image`}
-                     alt={`Preloaded image ${key + 1}`}
-                     aria-hidden="true"/>
+                <img
+                    key={key}
+                    src={utils.file.resolvePath(src)}
+                    className={`cache-image`}
+                    alt={`Preloaded image ${key + 1}`}
+                    aria-hidden="true"
+                />
             ))}
         </div>
     )

@@ -1,9 +1,10 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-cards-items {
     --item-padding-default: 30px;
     --item-padding-bottom-offset: 8px;
-    --item-padding: var(--item-padding-default) calc(var(--item-padding-default) + 8px) calc(var(--item-padding-default) + var(--item-padding-bottom-offset));
+    --item-padding: var(--item-padding-default) calc(var(--item-padding-default) + 8px)
+        calc(var(--item-padding-default) + var(--item-padding-bottom-offset));
     --avatar-size: 98px;
     --avatar-border-size: 7px;
     --min-height: 260px;
@@ -63,7 +64,7 @@ div.article-cards-item-avatar {
     height: var(--avatar-size);
     border: var(--avatar-border-size) solid var(--theme-standard-borders-accent);
     border-radius: 100%;
-    font-size: calc(var(--avatar-size)/2.4)!important;
+    font-size: calc(var(--avatar-size) / 2.4) !important;
 }
 
 div.article-cards-item-content {
@@ -79,7 +80,7 @@ div.article-cards-item-content {
     h6 {
         color: var(--theme-texts-light);
         font-weight: bold;
-        margin-bottom: calc(var(--avatar-size)/10);
+        margin-bottom: calc(var(--avatar-size) / 10);
     }
 
     &-description {
@@ -89,6 +90,6 @@ div.article-cards-item-content {
 
     &-date-badge {
         width: 140px;
-        margin: calc(var(--avatar-size)/8) auto 0;
+        margin: calc(var(--avatar-size) / 8) auto 0;
     }
 }

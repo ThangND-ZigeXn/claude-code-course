@@ -1,8 +1,8 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.layout-navigation-wrapper {
-    $target-height: calc(100vh - $default-card-spacing*2);
-    $target-height-svh: calc(100svh - $default-card-spacing*2);
+    $target-height: calc(100vh - $default-card-spacing * 2);
+    $target-height-svh: calc(100svh - $default-card-spacing * 2);
 
     display: flex;
     height: $target-height;

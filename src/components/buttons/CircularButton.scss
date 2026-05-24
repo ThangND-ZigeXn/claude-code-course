@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 button.circular-button {
     display: flex;
@@ -57,7 +57,8 @@ button.circular-button-variant-transparent {
     }
 }
 
-button.circular-button-variant-blend, button.circular-button-variant-transparent {
+button.circular-button-variant-blend,
+button.circular-button-variant-transparent {
     i {
         scale: 0.9;
     }
@@ -79,7 +80,7 @@ button.circular-button-variant-blend, button.circular-button-variant-transparent
         max-width: $size;
         min-height: $size;
         max-height: $size;
-        font-size: calc(#{$size}/2.5);
+        font-size: calc(#{$size}/ 2.5);
 
         @include media-breakpoint-down($max-breakpoint-for-tabbed-interface) {
             width: $responsive-size;
@@ -88,7 +89,7 @@ button.circular-button-variant-blend, button.circular-button-variant-transparent
             max-width: $responsive-size;
             min-height: $responsive-size;
             max-height: $responsive-size;
-            font-size: calc(#{$responsive-size}/2.5);
+            font-size: calc(#{$responsive-size}/ 2.5);
         }
     }
 }
@@ -98,4 +99,3 @@ button.circular-button-variant-blend, button.circular-button-variant-transparent
 @include create_size('circular-button-size-large', 36px, 32px);
 @include create_size('circular-button-size-extra-large', 40px, 36px);
 @include create_size('circular-button-size-extra-extra-large', 46px, 42px);
-

@@ -1,42 +1,45 @@
-import "./Scrollable.scss"
-import React, {useEffect, useState} from 'react'
-import {useViewport} from "/src/providers/ViewportProvider.jsx"
-import {useUtils} from "/src/hooks/utils.js"
-import {useConstants} from "/src/hooks/constants.js"
+import './Scrollable.scss'
+import React, { useEffect, useState } from 'react'
+import { useViewport } from '/src/providers/ViewportProvider.jsx'
+import { useUtils } from '/src/hooks/utils.js'
+import { useConstants } from '/src/hooks/constants.js'
 import Scrollbar from 'smooth-scrollbar'
 import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll'
 
-function Scrollable({ children, id, pluginEnabled, shouldResetScroll, setShouldResetScroll, className = "" }) {
+function Scrollable({
+    children,
+    id,
+    pluginEnabled,
+    shouldResetScroll,
+    setShouldResetScroll,
+    className = '',
+}) {
     const constants = useConstants()
     const viewport = useViewport()
     const utils = useUtils()
 
     const [plugin, setPlugin] = useState(null)
 
-    const pluginEnabledClass = plugin ?
-        `scrollable-with-plugin` :
-        ``
+    const pluginEnabledClass = plugin ? `scrollable-with-plugin` : ``
 
     /** @constructs **/
     useEffect(() => {
         const supportsPlugin = !viewport.isMobileLayout() && !utils.device.isTouchDevice()
         const shouldCreatePlugin = supportsPlugin && pluginEnabled
 
-        if(shouldCreatePlugin) _createPlugin()
+        if (shouldCreatePlugin) _createPlugin()
         else _deactivatePlugin()
     }, [pluginEnabled, viewport.isMobileLayout()])
 
     useEffect(() => {
-        if(!shouldResetScroll)
-            return
+        if (!shouldResetScroll) return
 
-        if(!plugin) {
+        if (!plugin) {
             const div = document.getElementById(id)
             setTimeout(() => {
                 div.scrollTop = 0
             }, 50)
-        }
-        else {
+        } else {
             plugin.scrollTo(0, 0)
         }
 
@@ -44,8 +47,7 @@ function Scrollable({ children, id, pluginEnabled, shouldResetScroll, setShouldR
     }, [shouldResetScroll])
 
     const _createPlugin = () => {
-        if(plugin)
-            return
+        if (plugin) return
 
         const target = document.getElementById(id)
 
@@ -57,17 +59,16 @@ function Scrollable({ children, id, pluginEnabled, shouldResetScroll, setShouldR
             plugins: {
                 overscroll: {
                     effect: 'glow',
-                    glowColor: utils.css.getRootSCSSVariable("--theme-secondary")
-                }
-            }
+                    glowColor: utils.css.getRootSCSSVariable('--theme-secondary'),
+                },
+            },
         })
 
         setPlugin(scrollbar)
     }
 
     const _deactivatePlugin = () => {
-        if(!plugin)
-            return
+        if (!plugin) return
 
         const target = document.getElementById(id)
         Scrollbar.destroy(target)
@@ -75,12 +76,11 @@ function Scrollable({ children, id, pluginEnabled, shouldResetScroll, setShouldR
     }
 
     return (
-        <div className={`scrollable-wrapper ${constants.HTML_CLASSES.scrollbarDecorator} ${className}`}>
-            <div className={`scrollable ${pluginEnabledClass}`}
-                 id={id}>
-                <div className={`scrollable-content`}>
-                    {children}
-                </div>
+        <div
+            className={`scrollable-wrapper ${constants.HTML_CLASSES.scrollbarDecorator} ${className}`}
+        >
+            <div className={`scrollable ${pluginEnabledClass}`} id={id}>
+                <div className={`scrollable-content`}>{children}</div>
             </div>
         </div>
     )

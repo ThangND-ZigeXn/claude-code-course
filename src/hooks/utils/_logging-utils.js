@@ -17,8 +17,7 @@ export const _loggingUtils = {
      * @param {String} warningMessage
      */
     warn: (component, warningMessage) => {
-        if(!console || !console.log)
-            return
+        if (!console || !console.log) return
         console.warn(`[${component}] ${warningMessage}`)
     },
 
@@ -43,40 +42,32 @@ export const _loggingUtils = {
      * @param {String} primaryColor
      */
     info: (title, items, primaryColor) => {
-        if(!console || !console.log)
-            return
+        if (!console || !console.log) return
 
-        if(title) {
-            _loggingUtils.stylizedLog(
-                `\n${title}\n`,
-                primaryColor,
-                1.7,
-                true
-            )
+        if (title) {
+            _loggingUtils.stylizedLog(`\n${title}\n`, primaryColor, 1.7, true)
         }
 
-        const body = items.map(item => {
-            const itemListPrefixes = {
-                bulleted: "• ",
-                none: ""
-            }
+        const body = items
+            .map((item) => {
+                const itemListPrefixes = {
+                    bulleted: '• ',
+                    none: '',
+                }
 
-            const itemList = item.list || []
-            const itemListStyle = item.listStyle
-            const itemListPrefix = itemListPrefixes[itemListStyle] || itemListPrefixes.none
+                const itemList = item.list || []
+                const itemListStyle = item.listStyle
+                const itemListPrefix = itemListPrefixes[itemListStyle] || itemListPrefixes.none
 
-            const itemListSerialized = itemList.map(
-                subItem => `\n${itemListPrefix}${subItem}`
-            ).join('')
+                const itemListSerialized = itemList
+                    .map((subItem) => `\n${itemListPrefix}${subItem}`)
+                    .join('')
 
-            return `${item.description}${itemListSerialized}\n`
-        }).join('\n').trim()
+                return `${item.description}${itemListSerialized}\n`
+            })
+            .join('\n')
+            .trim()
 
-        _loggingUtils.stylizedLog(
-            body,
-            "#999",
-            1.2,
-            false
-        )
-    }
+        _loggingUtils.stylizedLog(body, '#999', 1.2, false)
+    },
 }

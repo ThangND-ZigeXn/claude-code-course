@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 ul.tags {
     display: block;
@@ -39,12 +39,11 @@ li.tag-dark {
     margin-right: 3px;
     margin-bottom: 3px;
 
-
     &:hover {
         background-color: var(--theme-background-darken-1);
     }
 }
 
 li.tag-no-transition {
-    transition: none!important;
+    transition: none !important;
 }

@@ -8,8 +8,8 @@ export const _deviceUtils = {
      * @return {boolean}
      */
     isAndroid: () => {
-        const userAgent = window.navigator.userAgent.toLowerCase();
-        return /android/.test(userAgent);
+        const userAgent = window.navigator.userAgent.toLowerCase()
+        return /android/.test(userAgent)
     },
 
     /**
@@ -25,7 +25,10 @@ export const _deviceUtils = {
      */
     isChromeAndroid: () => {
         const userAgent = navigator.userAgent
-        return /Chrome\/[.0-9]* Mobile/i.test(userAgent) && !/OPR|Edg|SamsungBrowser|UCBrowser|CriOS/i.test(userAgent)
+        return (
+            /Chrome\/[.0-9]* Mobile/i.test(userAgent) &&
+            !/OPR|Edg|SamsungBrowser|UCBrowser|CriOS/i.test(userAgent)
+        )
     },
 
     /**
@@ -33,15 +36,15 @@ export const _deviceUtils = {
      */
     isChromeOS: () => {
         const userAgent = window.navigator.userAgent.toLowerCase()
-        return /cros/.test(userAgent);
+        return /cros/.test(userAgent)
     },
 
     /**
      * @return {boolean}
      **/
     isFirefox: () => {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        return /Firefox/.test(userAgent);
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera
+        return /Firefox/.test(userAgent)
     },
 
     /**
@@ -49,8 +52,10 @@ export const _deviceUtils = {
      */
     isIOS: () => {
         const userAgent = window.navigator.userAgent.toLowerCase()
-        return /iphone|ipad|ipod/.test(userAgent)
-            || /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+        return (
+            /iphone|ipad|ipod/.test(userAgent) ||
+            /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+        )
     },
 
     /**
@@ -73,8 +78,10 @@ export const _deviceUtils = {
      * @return {boolean}
      */
     isTouchDevice: () => {
-        return (('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0))
-    }
+        return (
+            'ontouchstart' in window ||
+            navigator.maxTouchPoints > 0 ||
+            navigator.msMaxTouchPoints > 0
+        )
+    },
 }

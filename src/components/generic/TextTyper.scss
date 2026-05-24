@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 span.text-typer-span {
     position: relative;
@@ -13,6 +13,6 @@ span.text-typer-span-cursor {
     }
 
     &-no-transition {
-        transition: none!important;
+        transition: none !important;
     }
 }

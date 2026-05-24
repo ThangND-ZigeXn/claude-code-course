@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.message-card {
     --avatar-size: 110px;
@@ -21,7 +21,7 @@ div.message-card {
         --padding: 30px;
     }
 
-    background-color: var(--theme-boards-background)!important;
+    background-color: var(--theme-boards-background) !important;
 
     &-body {
         display: flex;
@@ -52,7 +52,8 @@ div.message-card {
         color: var(--theme-texts-light);
     }
 
-    p.message-card-body, p.message-card-footer {
+    p.message-card-body,
+    p.message-card-footer {
         margin-bottom: 0;
         color: var(--theme-texts-light-2);
     }

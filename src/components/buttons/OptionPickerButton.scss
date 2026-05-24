@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.btn-option-picker {
     display: flex;
@@ -13,7 +13,8 @@ button.btn-option-picker-toggle {
         color: var(--theme-texts);
     }
 
-    img, i.fa-icon {
+    img,
+    i.fa-icon {
         transition: 0.1s ease-in-out transform;
     }
 
@@ -37,7 +38,8 @@ button.btn-option-picker-toggle:hover {
         color: var(--theme-primary);
     }
 
-    img, i.fa-icon {
+    img,
+    i.fa-icon {
         transform: scale(1.1);
     }
 
@@ -45,7 +47,6 @@ button.btn-option-picker-toggle:hover {
         opacity: 1;
     }
 }
-
 
 a.btn-option-picker-menu-item {
     i.fa-icon {
@@ -60,8 +61,8 @@ a.btn-option-picker-menu-item {
 }
 
 a.btn-option-picker-menu-item-selected {
-    background-color: var(--theme-texts-light-2)!important;
-    color: var(--theme-texts-inv)!important;
+    background-color: var(--theme-texts-light-2) !important;
+    color: var(--theme-texts-inv) !important;
     user-select: none;
     pointer-events: none;
 

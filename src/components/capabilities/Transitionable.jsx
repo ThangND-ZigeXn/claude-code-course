@@ -1,8 +1,15 @@
-import "./Transitionable.scss"
-import React, {useEffect, useState} from 'react'
-import {useScheduler} from "/src/hooks/scheduler.js"
+import './Transitionable.scss'
+import React, { useEffect, useState } from 'react'
+import { useScheduler } from '/src/hooks/scheduler.js'
 
-function Transitionable({ children, id, refreshFlag, delayBetweenItems = 100, className = "", animation = "transitionable-item-animation-pop" }) {
+function Transitionable({
+    children,
+    id,
+    refreshFlag,
+    delayBetweenItems = 100,
+    className = '',
+    animation = 'transitionable-item-animation-pop',
+}) {
     const scheduler = useScheduler()
 
     const [renderingChildren, setRenderingChildren] = useState([])
@@ -11,23 +18,28 @@ function Transitionable({ children, id, refreshFlag, delayBetweenItems = 100, cl
     const [refreshCount, setRefreshCount] = useState(0)
 
     useEffect(() => {
-        if(currentRefreshFlag === refreshFlag)
-            return
+        if (currentRefreshFlag === refreshFlag) return
 
-        const previousFlagSplit = currentRefreshFlag?.split("::")
-        const currentFlagSplit = refreshFlag?.split("::")
+        const previousFlagSplit = currentRefreshFlag?.split('::')
+        const currentFlagSplit = refreshFlag?.split('::')
 
         let forceNoTransition = false
-        if(previousFlagSplit && currentFlagSplit && previousFlagSplit.length >= 2 && currentFlagSplit.length >= 2 && previousFlagSplit[0] === currentFlagSplit[0])
+        if (
+            previousFlagSplit &&
+            currentFlagSplit &&
+            previousFlagSplit.length >= 2 &&
+            currentFlagSplit.length >= 2 &&
+            previousFlagSplit[0] === currentFlagSplit[0]
+        )
             forceNoTransition = true
 
         setCurrentRefreshFlag(refreshFlag)
 
         let shouldTransition = transitionsEnabled
-        if(refreshCount > 1) shouldTransition = !forceNoTransition
+        if (refreshCount > 1) shouldTransition = !forceNoTransition
         setTransitionsEnabled(shouldTransition)
 
-        if(shouldTransition) _refreshWithTransition()
+        if (shouldTransition) _refreshWithTransition()
         else _refreshWithoutTransition()
     }, [refreshFlag])
 
@@ -35,10 +47,14 @@ function Transitionable({ children, id, refreshFlag, delayBetweenItems = 100, cl
         scheduler.clearAllWithTag(id)
         setRenderingChildren([])
 
-        scheduler.schedule(() => {
-            setRenderingChildren(children)
-            setRefreshCount(refreshCount + 1)
-        }, TRANSITIONABLE_REFRESH_DELAY, id)
+        scheduler.schedule(
+            () => {
+                setRenderingChildren(children)
+                setRefreshCount(refreshCount + 1)
+            },
+            TRANSITIONABLE_REFRESH_DELAY,
+            id
+        )
     }
 
     const _refreshWithoutTransition = () => {
@@ -52,14 +68,16 @@ function Transitionable({ children, id, refreshFlag, delayBetweenItems = 100, cl
         <div className={`transitionable-wrapper`}>
             <div className={`transitionable ${className}`}>
                 {renderingChildren.map((child, key) => (
-                    <TransitionableItem children={child}
-                                        id={id + "-" + key}
-                                        index={key}
-                                        key={key}
-                                        animation={animation}
-                                        transitionsEnabled={transitionsEnabled}
-                                        refreshCount={refreshCount}
-                                        delayBetweenItems={delayBetweenItems}/>
+                    <TransitionableItem
+                        children={child}
+                        id={id + '-' + key}
+                        index={key}
+                        key={key}
+                        animation={animation}
+                        transitionsEnabled={transitionsEnabled}
+                        refreshCount={refreshCount}
+                        delayBetweenItems={delayBetweenItems}
+                    />
                 ))}
             </div>
         </div>
@@ -67,20 +85,26 @@ function Transitionable({ children, id, refreshFlag, delayBetweenItems = 100, cl
 }
 
 Transitionable.Animations = {
-    POP: "transitionable-item-animation-pop",
+    POP: 'transitionable-item-animation-pop',
 }
 
-function TransitionableItem({ children, id, index, animation, transitionsEnabled, refreshCount, delayBetweenItems }) {
+function TransitionableItem({
+    children,
+    id,
+    index,
+    animation,
+    transitionsEnabled,
+    refreshCount,
+    delayBetweenItems,
+}) {
     const scheduler = useScheduler()
 
     const [isVisible, setIsVisible] = useState(false)
 
-    const animationClass = isVisible ?
-        animation :
-        `transitionable-item-invisible`
+    const animationClass = isVisible ? animation : `transitionable-item-invisible`
 
     useEffect(() => {
-        if(transitionsEnabled) _showWithTransition()
+        if (transitionsEnabled) _showWithTransition()
         else _showWithoutTransition()
     }, [refreshCount])
 
@@ -88,9 +112,13 @@ function TransitionableItem({ children, id, index, animation, transitionsEnabled
         scheduler.clearAllWithTag(id)
 
         setIsVisible(false)
-        scheduler.schedule(() => {
-            setIsVisible(true)
-        }, TRANSITIONABLE_REFRESH_DELAY + 30 + delayBetweenItems*index, id)
+        scheduler.schedule(
+            () => {
+                setIsVisible(true)
+            },
+            TRANSITIONABLE_REFRESH_DELAY + 30 + delayBetweenItems * index,
+            id
+        )
     }
 
     const _showWithoutTransition = () => {
@@ -98,11 +126,7 @@ function TransitionableItem({ children, id, index, animation, transitionsEnabled
         setIsVisible(true)
     }
 
-    return (
-        <div className={`transitionable-item ${animationClass}`}>
-            {children}
-        </div>
-    )
+    return <div className={`transitionable-item ${animationClass}`}>{children}</div>
 }
 
 const TRANSITIONABLE_REFRESH_DELAY = 50

@@ -5,25 +5,25 @@
                 "title_short": "Welcome!",
                 "title_short_nav": "About me",
                 "title_long_prefix": "Hello...",
-                "title_long": "I'm {{Mark Choi!}}"
+                "title_long": "I'm {{Nguyen Duc Thang!}}"
             },
             "es": {
                 "title_short": "¡Saludos!",
                 "title_short_nav": "Sobre mí",
                 "title_long_prefix": "Hola...",
-                "title_long": "Soy {{Mark Choi!}}"
+                "title_long": "Soy {{Nguyen Duc Thang!}}"
             },
             "fr": {
                 "title_short": "Salut !",
                 "title_short_nav": "À propos",
                 "title_long_prefix": "Salut...",
-                "title_long": "Je suis {{Mark Choi !}}"
+                "title_long": "Je suis {{Nguyen Duc Thang !}}"
             },
             "ko": {
                 "title_short": "환영합니다!",
                 "title_short_nav": "소개",
                 "title_long_prefix": "안녕하세요...",
-                "title_long": "저는 {{최민석}}입니다!"
+                "title_long": "저는 {{응우옌 득 탕}}입니다!"
             }
         }
     },
@@ -41,20 +41,20 @@
             "items": [
                 {
                     "id": 1,
-                    "label": "Cupertino – CA",
+                    "label": "Ho Chi Minh City, Vietnam",
                     "link": {"href": "", "tooltipString": ""},
                     "faIcon": "pi pi-map-marker"
                 },
                 {
                     "id": 2,
-                    "label": "mark.choi@dev.com",
-                    "link": {"href": "mailto:mark.choi@dev.com", "tooltipString": "email_me"},
+                    "label": "thangnd@zigexn.vn",
+                    "link": {"href": "mailto:thangnd@zigexn.vn", "tooltipString": "email_me"},
                     "faIcon": "fa-regular fa-envelope"
                 },
                 {
                     "id": 3,
-                    "label": "@ryanbalieiro",
-                    "link": {"href": "https://github.com/ryanbalieiro", "tooltipString": "see_on_github"},
+                    "label": "@ThangND-ZigeXn",
+                    "link": {"href": "https://github.com/ThangND-ZigeXn", "tooltipString": "see_on_github"},
                     "faIcon": "fa-brands fa-github"
                 }
             ]
@@ -81,16 +81,16 @@
                     "faIconColors": {"bg": "", "fill": ""},
                     "locales": {
                         "en": {
-                            "text": "<p>I’m a {{PHP}} developer with [[over a decade]] of experience, specializing in backend development with some frontend work as well. I also have hands-on experience with C++, C#, Go, and Python in production environments.</p><p>This diverse background gives me the flexibility to adapt to a wide range of project needs, whether it's building scalable APIs, optimizing system performance, or contributing to full-stack solutions.</p><p>I look forward to collaborating [[with you!]]</p>"
+                            "text": "<p>I’m a {{web developer}} specialized in [[Ruby on Rails]] and [[Next.js]]. I enjoy building scalable and maintainable web applications with clean architecture.</p><p>I’m also passionate about UI/UX design and creating intuitive user experiences. Currently, I’m continuously improving my skills in both backend engineering and modern frontend development.</p><p>I look forward to collaborating [[with you!]]</p>"
                         },
                         "es": {
-                            "text": "<p>Soy un desarrollador de {{PHP}} con [[más de una década]] de experiencia, especializado en desarrollo backend y con algo de experiencia en frontend. También tengo experiencia práctica en entornos de producción con C++, C#, Go y Python.</p><p>Este variado historial me permite adaptarme a una amplia gama de necesidades de proyectos, ya sea construyendo APIs escalables, optimizando el rendimiento de sistemas o contribuyendo a soluciones full-stack.</p><p>¡Espero con interés colaborar [[contigo!]]</p>"
+                            "text": "<p>Soy un {{desarrollador web}} especializado en [[Ruby on Rails]] y [[Next.js]]. Disfruto construyendo aplicaciones web escalables y mantenibles con arquitectura limpia.</p><p>También me apasiona el diseño UI/UX y la creación de experiencias de usuario intuitivas. Actualmente, sigo mejorando mis habilidades en ingeniería backend y desarrollo frontend moderno.</p><p>¡Espero con interés colaborar [[contigo!]]</p>"
                         },
                         "fr": {
-                            "text": "<p>Je suis développeur {{PHP}} avec [[plus d'une décennie]] d'expérience, spécialisé dans le développement backend avec un peu de travail en frontend également. J'ai aussi de l'expérience en production avec les technologies C++, C#, Go et Python.</p><p>Ce parcours diversifié me permet de m'adapter à une large gamme de besoins de projets, qu'il s'agisse de créer des API évolutives, d'améliorer les performances système ou de participer à des solutions full-stack.</p><p>Je suis impatient de collaborer [[avec vous !]]</p>"
+                            "text": "<p>Je suis un {{développeur web}} spécialisé en [[Ruby on Rails]] et [[Next.js]]. J’aime créer des applications web évolutives et maintenables avec une architecture propre.</p><p>Je suis également passionné par le design UI/UX et la création d’expériences utilisateur intuitives. Actuellement, je continue à améliorer mes compétences en ingénierie backend et en développement frontend moderne.</p><p>Je suis impatient de collaborer [[avec vous !]]</p>"
                         },
                         "ko": {
-                            "text": "<p>저는 {{백엔드}} 개발을 전문으로 하고, 프론트엔드 작업도 일부 수행해온 [[10년 이상의]] 경력을 가진 PHP 개발자입니다. 또한 C++, C#, Go, Python 스택을 사용한 프로덕션 경험도 있습니다.</p><p>이 다양한 배경 덕분에 프로젝트의 다양한 요구에 유연하게 대처할 수 있습니다. 확장 가능한 API 구축, 시스템 성능 최적화, 또는 전체 스택 솔루션에 기여하는 등 다양한 분야에 능숙하게 참여할 수 있습니다. 저는 각 프로젝트에 맞는 최적의 도구를 찾는 것과 새로운 도전을 즐깁니다.</p><p>[[당신과 협업]]하기를 기대하고 있습니다!</p>"
+                            "text": "<p>저는 [[Ruby on Rails]]와 [[Next.js]]를 전문으로 하는 {{웹 개발자}}입니다. 깔끔한 아키텍처로 확장 가능하고 유지보수 가능한 웹 애플리케이션 구축을 즐깁니다.</p><p>UI/UX 디자인과 직관적인 사용자 경험 만들기에도 열정을 가지고 있습니다. 현재 백엔드 엔지니어링과 최신 프론트엔드 개발 역량을 지속적으로 향상시키고 있습니다.</p><p>[[당신과 협업]]하기를 기대하고 있습니다!</p>"
                         }
                     }
                 }
@@ -121,15 +121,15 @@
                     "locales": {
                         "en": {
                             "title": "CEO at [[SalesForce]]",
-                            "text": "Working with Mark was a truly [[transformative experience]]. His outstanding programming skills and collaborative spirit not only elevated the quality of our project but also brought a renewed sense of motivation and purpose to us."
+                            "text": "Working with Thang was a truly [[transformative experience]]. His outstanding programming skills and collaborative spirit not only elevated the quality of our project but also brought a renewed sense of motivation and purpose to us."
                         },
                         "es": {
                             "title": "CEO en [[SalesForce]]",
-                            "text": "Trabajar con Mark fue una [[experiencia transformadora]]. Su gran habilidad para programar y su espíritu colaborativo mejoraron el proyecto y nos devolvieron la motivación y el propósito."
+                            "text": "Trabajar con Thang fue una [[experiencia transformadora]]. Su gran habilidad para programar y su espíritu colaborativo mejoraron el proyecto y nos devolvieron la motivación y el propósito."
                         },
                         "fr": {
                             "title": "PDG de [[SalesForce]]",
-                            "text": "Travailler avec Mark fut une [[expérience transformante]]. Ses compétences en programmation et son esprit d’équipe ont élevé le projet et ravivé notre motivation et notre but."
+                            "text": "Travailler avec Thang fut une [[expérience transformante]]. Ses compétences en programmation et son esprit d’équipe ont élevé le projet et ravivé notre motivation et notre but."
                         },
                         "ko": {
                             "title": "세일즈포스 CEO",
@@ -147,7 +147,7 @@
                     "locales": {
                         "en": {
                             "title": "Lead Developer at [[GitHub]]",
-                            "text": "Having Mark on our team was an invaluable asset. His [[deep programming insights and mentorship]] not only elevated our projects but also empowered us to tackle every challenge with confidence and creativity."
+                            "text": "Having Thang on our team was an invaluable asset. His [[deep programming insights and mentorship]] not only elevated our projects but also empowered us to tackle every challenge with confidence and creativity."
                         },
                         "es": {
                             "title": "Desarrollador Principal en [[GitHub]]",
@@ -199,19 +199,19 @@
                     "locales": {
                         "en": {
                             "title": "Creative Director at [[Dribbble]]",
-                            "text": "Mark Choi's [[attention to detail]] and his [[innovative thinking]] brought a fresh perspective to our whole design process! Simply amazing!"
+                            "text": "Thang's [[attention to detail]] and his [[innovative thinking]] brought a fresh perspective to our whole design process! Simply amazing!"
                         },
                         "es": {
                             "title": "Director Creativo en [[Dribbble]]",
-                            "text": "La [[atención al detalle]] y el [[pensamiento innovador]] de Mark Choi aportaron una perspectiva fresca a todo nuestro proceso de diseño. ¡Simplemente increíble!"
+                            "text": "La [[atención al detalle]] y el [[pensamiento innovador]] de Thang aportaron una perspectiva fresca a todo nuestro proceso de diseño. ¡Simplemente increíble!"
                         },
                         "fr": {
                             "title": "Directeur Créatif chez [[Dribbble]]",
-                            "text": "L’[[attention aux détails]] et la [[pensée innovante]] de Mark Choi ont apporté une perspective nouvelle à tout notre processus de design ! Simplement incroyable !"
+                            "text": "L’[[attention aux détails]] et la [[pensée innovante]] de Thang ont apporté une perspective nouvelle à tout notre processus de design ! Simplement incroyable !"
                         },
                         "ko": {
                             "title": "[[Dribbble]] 크리에이티브 디렉터",
-                            "text": "마크 최의 [[세심한 배려]]와 [[혁신적인 사고]]가 전체 디자인 과정에 신선한 시각을 가져왔습니다! 정말 놀랍습니다!"
+                            "text": "탕의 [[세심한 배려]]와 [[혁신적인 사고]]가 전체 디자인 과정에 신선한 시각을 가져왔습니다! 정말 놀랍습니다!"
                         }
                     }
                 }

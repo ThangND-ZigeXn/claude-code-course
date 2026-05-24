@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-timeline-item-info-for-timelines {
     --content-padding: 25px 30px;
@@ -47,7 +47,7 @@ div.article-timeline-item-info-for-timelines-header-title {
     h5 {
         font-weight: bold;
         margin-bottom: 10px;
-        max-width: calc(100% - var(--date-badge-width)*1.15);
+        max-width: calc(100% - var(--date-badge-width) * 1.15);
         @include media-breakpoint-down(xl) {
             max-width: 100%;
             margin-bottom: 15px;
@@ -59,7 +59,7 @@ div.article-timeline-item-info-for-timelines-header-title {
         right: -4px;
         top: -4px;
         font-size: 13px;
-        min-width: var(--date-badge-width)!important;
+        min-width: var(--date-badge-width) !important;
     }
 }
 

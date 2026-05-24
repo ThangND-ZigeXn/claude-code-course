@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.status-circle {
     cursor: help;
@@ -75,7 +75,8 @@ div.status-circle-size-default {
 
 /** Color Variants **/
 div.status-circle-variant-available {
-    div.status-circle-body, div.status-circle-pulse {
+    div.status-circle-body,
+    div.status-circle-pulse {
         background-color: var(--theme-primary);
     }
 }

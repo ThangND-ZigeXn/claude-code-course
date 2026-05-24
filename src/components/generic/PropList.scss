@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 ul.prop-list {
     list-style: none;
@@ -20,7 +20,8 @@ li.prop-list-item {
         opacity: 0.9;
     }
 
-    i.prop-list-separator, span.prop-list-separator {
+    i.prop-list-separator,
+    span.prop-list-separator {
         color: var(--theme-texts);
         font-size: 10px;
         user-select: none;
@@ -37,7 +38,7 @@ ul.prop-list-inline {
 
         &:not(:last-child) {
             &:after {
-                content: "·";
+                content: '·';
                 margin-left: 10px;
                 opacity: 0.5;
             }

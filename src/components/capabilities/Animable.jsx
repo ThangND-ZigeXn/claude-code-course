@@ -1,7 +1,7 @@
-import "./Animable.scss"
-import React, {useEffect, useState} from 'react'
+import './Animable.scss'
+import React, { useEffect, useState } from 'react'
 
-function Animable({ children, animationId, onEnterFrame, className = "" }) {
+function Animable({ children, animationId, onEnterFrame, className = '' }) {
     const [ticks, setTicks] = useState(0)
     const [lastTickTimeSpan, setLastTickTimeSpan] = useState(null)
     const [totalElapsed, setTotalElapsed] = useState(0)
@@ -13,7 +13,7 @@ function Animable({ children, animationId, onEnterFrame, className = "" }) {
 
         let animationFrameId
         const animate = () => {
-            setTicks(prevState => prevState + 1)
+            setTicks((prevState) => prevState + 1)
             animationFrameId = requestAnimationFrame(animate)
         }
 
@@ -25,10 +25,10 @@ function Animable({ children, animationId, onEnterFrame, className = "" }) {
     useEffect(() => {
         const now = new Date().getTime()
         const then = lastTickTimeSpan || now
-        const dt = (now - then)/1000
+        const dt = (now - then) / 1000
 
         setLastTickTimeSpan(now)
-        setTotalElapsed(prevState => prevState + dt)
+        setTotalElapsed((prevState) => prevState + dt)
 
         window.ANIMATION_DATA[animationId].event = window.ANIMATION_DATA[animationId].event || {}
         window.ANIMATION_DATA[animationId].event.timespan = now
@@ -38,11 +38,7 @@ function Animable({ children, animationId, onEnterFrame, className = "" }) {
         onEnterFrame && onEnterFrame(window.ANIMATION_DATA[animationId].event)
     }, [ticks])
 
-    return (
-        <div className={className}>
-            {children}
-        </div>
-    )
+    return <div className={className}>{children}</div>
 }
 
 export default Animable

@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 section.section {
     grid-row-start: 1;
@@ -44,7 +44,9 @@ section.section {
 
     &-hiding {
         z-index: $z-index-section-inactive;
-        transition: 0.6s opacity ease-in-out, 0.6s transform ease-in-out;
+        transition:
+            0.6s opacity ease-in-out,
+            0.6s transform ease-in-out;
         user-select: none;
         pointer-events: none;
 
@@ -52,7 +54,9 @@ section.section {
         transform: translateX(-40px) scale(0.8);
         @include media-breakpoint-down($max-breakpoint-for-tabbed-interface) {
             width: calc(100% - 8px);
-            transition: 0.6s opacity ease-out, 0.4s transform ease-in-out;
+            transition:
+                0.6s opacity ease-out,
+                0.4s transform ease-in-out;
             transform: translateX(100vw);
         }
     }

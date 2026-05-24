@@ -13,7 +13,7 @@ export const _fileUtils = {
      * @param {String} url
      */
     download: (url) => {
-        window.open(_fileUtils.resolvePath(url), "_blank")
+        window.open(_fileUtils.resolvePath(url), '_blank')
     },
 
     /**
@@ -25,15 +25,14 @@ export const _fileUtils = {
 
         try {
             const response = await fetch(resolvedPath)
-            const contentType = response.headers.get("content-type") || ""
+            const contentType = response.headers.get('content-type') || ''
 
-            if (!response.ok || !contentType.includes("application/json")) {
+            if (!response.ok || !contentType.includes('application/json')) {
                 return null
             }
 
             return await response.json()
-        }
-        catch (error) {
+        } catch (error) {
             console.error(`Failed to load JSON from ${resolvedPath}:`, error)
             return null
         }
@@ -44,11 +43,11 @@ export const _fileUtils = {
      * @return {String}
      */
     resolvePath: (path) => {
-        if(!path) return path
-        if(path.startsWith("http")) return path
+        if (!path) return path
+        if (path.startsWith('http')) return path
 
-        const baseUrl = _fileUtils.BASE_URL || ""
+        const baseUrl = _fileUtils.BASE_URL || ''
         const fullPath = baseUrl + path
-        return fullPath.replace(/(^|[^:])\/\//g, "$1/")
+        return fullPath.replace(/(^|[^:])\/\//g, '$1/')
     },
 }

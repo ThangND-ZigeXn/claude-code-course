@@ -10,19 +10,73 @@ export const _stringUtils = {
      */
     abbreviateName: (name) => {
         const exceptions = [
-            'de', 'da', 'das', 'do', 'dos', 'di', 'del', 'della', 'dallo', 'dalla', 'dei', 'degli', 'y', 'e',
-            'du', 'des', 'le', 'la', 'les',
-            'von', 'van', 'zu', 'zum', 'zur', 'ten', 'ter', 'te', 'der', 'den', 'op', 'af', 'av',
-            'of', 'the', 'and',
-            'al', 'bin', 'ibn', 'bint', 'abu', 'umm', 'abd',
-            'z', 'ze', 'za', 'pod', 'nad', 'u', 'od', 'do', 'na',
-            'ben', 'bat', 'bar',
-            'mir', 'khwaja', 'zada'
+            'de',
+            'da',
+            'das',
+            'do',
+            'dos',
+            'di',
+            'del',
+            'della',
+            'dallo',
+            'dalla',
+            'dei',
+            'degli',
+            'y',
+            'e',
+            'du',
+            'des',
+            'le',
+            'la',
+            'les',
+            'von',
+            'van',
+            'zu',
+            'zum',
+            'zur',
+            'ten',
+            'ter',
+            'te',
+            'der',
+            'den',
+            'op',
+            'af',
+            'av',
+            'of',
+            'the',
+            'and',
+            'al',
+            'bin',
+            'ibn',
+            'bint',
+            'abu',
+            'umm',
+            'abd',
+            'z',
+            'ze',
+            'za',
+            'pod',
+            'nad',
+            'u',
+            'od',
+            'do',
+            'na',
+            'ben',
+            'bat',
+            'bar',
+            'mir',
+            'khwaja',
+            'zada',
         ]
 
-        return name.split(' ')
+        return name
+            .split(' ')
             .map((word, index, arr) => {
-                if (index === 0 || index === arr.length - 1 || exceptions.includes(word.toLowerCase())) {
+                if (
+                    index === 0 ||
+                    index === arr.length - 1 ||
+                    exceptions.includes(word.toLowerCase())
+                ) {
                     return word
                 }
                 return word[0].toUpperCase() + '.'
@@ -35,8 +89,7 @@ export const _stringUtils = {
      * @return {string}
      */
     extractFirstPart: (string) => {
-        if (!string)
-            return string
+        if (!string) return string
 
         string = _stringUtils.stripHTMLTags(string)
 
@@ -50,9 +103,7 @@ export const _stringUtils = {
             }
         }
 
-        return firstIndex !== -1 ?
-            string.substring(0, firstIndex).trim() :
-            string
+        return firstIndex !== -1 ? string.substring(0, firstIndex).trim() : string
     },
 
     /**
@@ -60,8 +111,7 @@ export const _stringUtils = {
      * @return {string}
      */
     extractFirstPeriod: (string) => {
-        if(!string)
-            return string
+        if (!string) return string
 
         const match = String(string).match(/.*?\./)
         return match ? match[0].trim() : string.trim()
@@ -75,7 +125,7 @@ export const _stringUtils = {
         prefix = prefix || 'key'
         window.randStrGenCount = window.randStrGenCount || 0
         window.randStrGenCount++
-        return prefix + "-rand-" + window.randStrGenCount
+        return prefix + '-rand-' + window.randStrGenCount
     },
 
     /**
@@ -83,8 +133,8 @@ export const _stringUtils = {
      * @param {String} string
      */
     if: (condition, string) => {
-        if(condition) return string
-        return ""
+        if (condition) return string
+        return ''
     },
 
     /**
@@ -93,14 +143,13 @@ export const _stringUtils = {
      * @return {string|*}
      */
     limitTextSize: (string, maxChars) => {
-        if(!string)
-            return null
+        if (!string) return null
 
-        if(string.length <= maxChars) {
+        if (string.length <= maxChars) {
             return string
         }
 
-        return string.substring(0, maxChars - 5) + "(...)"
+        return string.substring(0, maxChars - 5) + '(...)'
     },
 
     /**
@@ -109,8 +158,7 @@ export const _stringUtils = {
      * @return {string|*}
      */
     limitTextSizeWithoutCroppingWords: (string, maxChars) => {
-        if(!string)
-            return null
+        if (!string) return null
 
         if (string.length <= maxChars) {
             return string
@@ -119,10 +167,10 @@ export const _stringUtils = {
         const trimmed = string.substring(0, maxChars)
         const lastSpaceIndex = trimmed.lastIndexOf(' ')
         if (lastSpaceIndex === -1) {
-            return trimmed + "(...)"
+            return trimmed + '(...)'
         }
 
-        return trimmed.substring(0, lastSpaceIndex) + "(...)"
+        return trimmed.substring(0, lastSpaceIndex) + '(...)'
     },
 
     /**
@@ -130,10 +178,10 @@ export const _stringUtils = {
      * @return {string}
      */
     stripHTMLTags: (string) => {
-        if(!string)
-            return ""
+        if (!string) return ''
 
-        return String(string).replace(/<[^>]*>/g, '')
+        return String(string)
+            .replace(/<[^>]*>/g, '')
             .replace(/&nbsp;/gi, ' ')
             .replace(/&quot;/gi, '"')
             .replace(/&#39;/gi, "'")
@@ -144,8 +192,7 @@ export const _stringUtils = {
      * @param {Number} percentage
      */
     toDisplayPercentage: (percentage) => {
-        if(percentage === null || percentage === undefined || isNaN(percentage))
-            return null
-        return percentage + "%"
-    }
+        if (percentage === null || percentage === undefined || isNaN(percentage)) return null
+        return percentage + '%'
+    },
 }

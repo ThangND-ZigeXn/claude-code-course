@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-skills-items {
     --item-gap: 25px;
@@ -33,7 +33,8 @@ div.article-skills-items {
 }
 
 /** ---------- 2 ITEMS PER ROW ---------------- */
-div.article-skills-items-2-per-row, div.article-skills-items-3-per-row {
+div.article-skills-items-2-per-row,
+div.article-skills-items-3-per-row {
     grid-template-columns: repeat(2, 1fr);
 
     div.article-skills-item {
@@ -65,7 +66,7 @@ div.article-skills-item-avatar-wrapper {
 }
 
 div.article-skills-item-avatar {
-    --target-size: calc(var(--avatar-size)*1.1);
+    --target-size: calc(var(--avatar-size) * 1.1);
     min-width: var(--target-size);
     width: var(--target-size);
     min-height: var(--target-size);
@@ -75,7 +76,7 @@ div.article-skills-item-avatar {
     color: var(--theme-primary);
 
     border-radius: 8px;
-    font-size: calc(var(--target-size)*0.7)!important;
+    font-size: calc(var(--target-size) * 0.7) !important;
 }
 
 div.article-skills-item-avatar-round {
@@ -87,7 +88,7 @@ div.article-skills-item-avatar-round {
 
     border-radius: 100%;
     border: 3px solid var(--theme-boards-background);
-    font-size: calc(var(--target-size)*0.45)!important;
+    font-size: calc(var(--target-size) * 0.45) !important;
 }
 
 div.article-skills-item-info {
