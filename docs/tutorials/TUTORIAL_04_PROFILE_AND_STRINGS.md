@@ -87,6 +87,41 @@ It’s **strongly recommended** to keep all of them, as they're required by the 
 Additionally, for full multilingual support, you should provide **translations for each string in each language** you're supporting.  
 This ensures your app is fully translated and provides a consistent experience across all supported languages.
 
+## My Configuration
+
+Here is the actual `profile.json` configuration for this portfolio:
+
+```json
+{
+    "name": "Nguyen Duc Thang",
+
+    "profilePictureUrl": "images/pictures/profile-picture.jpg",
+    "resumePdfUrl": "",
+
+    "statusCircleVisible": true,
+    "statusCircleVariant": "available",
+    "statusCircleHoverMessage": "status_message_available_for_freelance",
+
+    "locales": {
+        "en": {
+            "localized_name": "Nguyen Duc Thang",
+            "localized_name_stylized": "[[Nguyen Duc {{Thang}}]]",
+            "status_message_available_for_freelance": "Open to new opportunities!",
+            "roles": [
+                "Web Developer",
+                "Ruby on Rails Developer",
+                "Next.js Developer",
+                "Full-Stack Developer"
+            ]
+        }
+    }
+}
+```
+
+**Bio (used in the About Me section of `cover.json`):**
+
+> I'm a web developer specialized in Ruby on Rails and Next.js. I enjoy building scalable and maintainable web applications with clean architecture. I'm also passionate about UI/UX design and creating intuitive user experiences. Currently, I'm continuously improving my skills in both backend engineering and modern frontend development.
+
 ## Next Steps
 Ready to keep going? Check out the next tutorial or revisit the previous one if you need a refresher:
 
