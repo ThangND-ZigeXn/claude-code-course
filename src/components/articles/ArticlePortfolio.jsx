@@ -23,7 +23,7 @@ function ArticlePortfolio({ dataWrapper, id }) {
 
     useEffect(() => {
         _saveSearchState(dataWrapper.uniqueId, searchQuery)
-    }, [searchQuery])
+    }, [searchQuery, dataWrapper.uniqueId])
 
     const handleClearSearch = () => setSearchQuery('')
 
