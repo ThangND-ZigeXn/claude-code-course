@@ -4,9 +4,9 @@
  * @description This hook provides methods to interact with external APIs.
  */
 
-import emailjs from "@emailjs/browser"
-import {useConstants} from "/src/hooks/constants.js"
-import {useUtils} from "/src/hooks/utils.js"
+import emailjs from '@emailjs/browser'
+import { useConstants } from '/src/hooks/constants.js'
+import { useUtils } from '/src/hooks/utils.js'
 
 const constants = useConstants()
 const utils = useUtils()
@@ -15,7 +15,7 @@ export const useApi = () => {
     return {
         validators,
         handlers,
-        analytics
+        analytics,
     }
 }
 
@@ -30,13 +30,26 @@ const validators = {
         const minWordCountForMessage = 3
 
         const validations = [
-            { errorCode: constants.ErrorCodes.VALIDATION_EMPTY_FIELDS,      errorCondition: !name || !email || !subject || !message },
-            { errorCode: constants.ErrorCodes.VALIDATION_EMAIL,             errorCondition: !utils.validation.validateEmail(email) },
-            { errorCode: constants.ErrorCodes.VALIDATION_MESSAGE_LENGTH,    errorCondition: !utils.validation.isLongerThan(message, minWordCountForMessage),    messageParameter: minWordCountForMessage + 1},
-            { errorCode: constants.ErrorCodes.VALIDATION_MESSAGE_SPAM,      errorCondition: utils.validation.isSpam(message) },
+            {
+                errorCode: constants.ErrorCodes.VALIDATION_EMPTY_FIELDS,
+                errorCondition: !name || !email || !subject || !message,
+            },
+            {
+                errorCode: constants.ErrorCodes.VALIDATION_EMAIL,
+                errorCondition: !utils.validation.validateEmail(email),
+            },
+            {
+                errorCode: constants.ErrorCodes.VALIDATION_MESSAGE_LENGTH,
+                errorCondition: !utils.validation.isLongerThan(message, minWordCountForMessage),
+                messageParameter: minWordCountForMessage + 1,
+            },
+            {
+                errorCode: constants.ErrorCodes.VALIDATION_MESSAGE_SPAM,
+                errorCondition: utils.validation.isSpam(message),
+            },
         ]
 
-        const error = validations.find(validation => validation.errorCondition)
+        const error = validations.find((validation) => validation.errorCondition)
         return {
             success: !error,
             errorCode: error?.errorCode,
@@ -49,10 +62,10 @@ const validators = {
                 custom_subject: subject,
                 message: message,
                 custom_source: utils.url.getAbsoluteLocation(),
-                custom_source_name: "React Portfolio"
-            }
+                custom_source_name: 'React Portfolio',
+            },
         }
-    }
+    },
 }
 
 const handlers = {
@@ -64,7 +77,7 @@ const handlers = {
         window._dummyRequestSuccess = !window._dummyRequestSuccess
 
         return {
-            success: window._dummyRequestSuccess
+            success: window._dummyRequestSuccess,
         }
     },
 
@@ -78,7 +91,7 @@ const handlers = {
     sendEmailRequest: async (validationBundle, publicKey, serviceId, templateId) => {
         emailjs.init(publicKey)
 
-        const response = {success: false}
+        const response = { success: false }
 
         try {
             const result = await emailjs.send(serviceId, templateId, validationBundle)
@@ -88,7 +101,7 @@ const handlers = {
         }
 
         return response
-    }
+    },
 }
 
 const analytics = {
@@ -97,16 +110,16 @@ const analytics = {
      * Here, you can integrate Google Analytics, Mixpanel, or your own custom analytics implementation.
      * @returns {Promise<void>}
      */
-    reportVisit: async() => {
-        await fetch("https://admin.ryanbalieiro.com/api/analytics/mock", {
+    reportVisit: async () => {
+        await fetch('https://admin.ryanbalieiro.com/api/analytics/mock', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 params: {
                     url: utils.url.getRootLocation(),
-                    template_id: "react-portfolio"
-                }
-            })
+                    template_id: 'react-portfolio',
+                },
+            }),
         })
-    }
+    },
 }

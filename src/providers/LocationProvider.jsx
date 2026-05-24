@@ -4,7 +4,7 @@
  * @description This provider acts as a router for the application, managing the active section and category based on the URL hash.
  */
 
-import React, {createContext, useContext, useEffect, useState} from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 function LocationProvider({ children, sections, categories }) {
     const [didMount, setDidMount] = useState(false)
@@ -29,20 +29,18 @@ function LocationProvider({ children, sections, categories }) {
 
     /** @listens nextSectionId **/
     useEffect(() => {
-        if(!nextSectionId)
-            return
+        if (!nextSectionId) return
 
         _toNextSection()
     }, [nextSectionId])
 
     const getActiveSection = () => {
-        return sections.find(section => section.id === activeSectionId)
+        return sections.find((section) => section.id === activeSectionId)
     }
 
     const getActiveCategory = () => {
         const activeSection = getActiveSection()
-        if(!activeSection)
-            return null
+        if (!activeSection) return null
         return activeSection.category
     }
 
@@ -52,55 +50,51 @@ function LocationProvider({ children, sections, categories }) {
 
     const isCategoryActive = (category) => {
         const activeSection = getActiveSection()
-        if(!activeSection)
-            return false
+        if (!activeSection) return false
         return activeSection.category.id === category.id
     }
 
     const goToSection = (section) => {
-        if(!section || activeSectionId === section.id)
-            return
+        if (!section || activeSectionId === section.id) return
         window.location.hash = section.id
     }
 
     const goToSectionWithId = (sectionId) => {
-        const section = sections.find(section => section.id === sectionId)
-        if(section) {
+        const section = sections.find((section) => section.id === sectionId)
+        if (section) {
             goToSection(section)
         }
     }
 
     const goToCategory = (category) => {
-        if(!category)
-            return
+        if (!category) return
 
         const targetSectionId = visitHistoryByCategory[category.id]
-        const targetSection = sections.find(section => section.id === targetSectionId)
+        const targetSection = sections.find((section) => section.id === targetSectionId)
 
         goToSection(targetSection || category.sections[0])
     }
 
     const goToCategoryWithId = (categoryId) => {
-        const category = categories.find(category => category.id === categoryId)
-        if(category) {
+        const category = categories.find((category) => category.id === categoryId)
+        if (category) {
             goToCategory(category)
         }
     }
 
     const _onHashEvent = () => {
-        const hash = window.location.hash.replace("#", "")
-        const targetSection = sections.find(section => section.id === hash)
-        if(targetSection) {
+        const hash = window.location.hash.replace('#', '')
+        const targetSection = sections.find((section) => section.id === hash)
+        if (targetSection) {
             setNextSectionId(targetSection.id)
-        }
-        else {
+        } else {
             _onInvalidSection()
         }
     }
 
     const _onInvalidSection = () => {
         const fallbackSection = sections[0]
-        if(fallbackSection) {
+        if (fallbackSection) {
             goToSection(fallbackSection)
         }
     }
@@ -108,31 +102,33 @@ function LocationProvider({ children, sections, categories }) {
     const _toNextSection = () => {
         setActiveSectionId(nextSectionId)
 
-        const section = sections.find(section => section.id === nextSectionId)
+        const section = sections.find((section) => section.id === nextSectionId)
         const category = section?.category
-        setVisitedSectionsCount(prevState => prevState + 1)
+        setVisitedSectionsCount((prevState) => prevState + 1)
 
-        if(section && category) {
-            setVisitHistoryByCategory(prevState => ({
+        if (section && category) {
+            setVisitHistoryByCategory((prevState) => ({
                 ...prevState,
-                [category.id]: section.id
+                [category.id]: section.id,
             }))
         }
     }
 
     return (
-        <LocationContext.Provider value={{
-            getActiveSection,
-            getActiveCategory,
-            isSectionActive,
-            isCategoryActive,
-            goToSection,
-            goToSectionWithId,
-            goToCategory,
-            goToCategoryWithId,
-            visitedSectionsCount,
-            visitHistoryByCategory
-        }}>
+        <LocationContext.Provider
+            value={{
+                getActiveSection,
+                getActiveCategory,
+                isSectionActive,
+                isCategoryActive,
+                goToSection,
+                goToSectionWithId,
+                goToCategory,
+                goToCategoryWithId,
+                visitedSectionsCount,
+                visitHistoryByCategory,
+            }}
+        >
             {didMount && children}
         </LocationContext.Provider>
     )

@@ -23,7 +23,7 @@ export const _cssUtils = {
     getRootSCSSVariable: (variable) => {
         const root = document.documentElement
         const computedStyle = getComputedStyle(root)
-        const propertyValue = computedStyle?.getPropertyValue(variable) || ""
+        const propertyValue = computedStyle?.getPropertyValue(variable) || ''
         return propertyValue?.trim() || null
     },
 
@@ -41,5 +41,5 @@ export const _cssUtils = {
         const b = bigint & 255
 
         return `rgba(${r}, ${g}, ${b}, ${opacity})`
-    }
+    },
 }

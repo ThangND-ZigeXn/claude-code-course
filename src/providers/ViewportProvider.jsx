@@ -4,10 +4,10 @@
  * @description This provider tracks the viewport size and scroll position, and provides utility functions to manage breakpoints and layout constraints.
  */
 
-import React, {createContext, useContext, useEffect, useState} from 'react'
-import {useUtils} from "/src/hooks/utils.js"
-import {useScheduler} from "/src/hooks/scheduler.js"
-import {useData} from "/src/providers/DataProvider.jsx"
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useUtils } from '/src/hooks/utils.js'
+import { useScheduler } from '/src/hooks/scheduler.js'
+import { useData } from '/src/providers/DataProvider.jsx'
 
 function ViewportProvider({ children }) {
     const data = useData()
@@ -15,7 +15,7 @@ function ViewportProvider({ children }) {
     const scheduler = useScheduler()
 
     const bootstrapBreakpoints = utils.css.BREAKPOINTS
-    const tag = "viewport-provider"
+    const tag = 'viewport-provider'
 
     const [scrollX, setScrollX] = useState(0)
     const [scrollY, setScrollY] = useState(0)
@@ -26,8 +26,8 @@ function ViewportProvider({ children }) {
 
     useEffect(() => {
         _createListeners()
-        if(utils.device.isTouchDevice() && utils.device.isAndroid())
-             document.body.classList.add("body-android")
+        if (utils.device.isTouchDevice() && utils.device.isAndroid())
+            document.body.classList.add('body-android')
 
         return () => _destroyListeners()
     }, [])
@@ -74,7 +74,9 @@ function ViewportProvider({ children }) {
     }
 
     const isMobileLayout = () => {
-        const mobileBreakpoint = utils.css.getRootSCSSVariable("--max-breakpoint-for-tabbed-interface")
+        const mobileBreakpoint = utils.css.getRootSCSSVariable(
+            '--max-breakpoint-for-tabbed-interface'
+        )
         return !isBreakpoint(mobileBreakpoint)
     }
 
@@ -83,29 +85,31 @@ function ViewportProvider({ children }) {
     }
 
     const getValueFromBreakpointHash = (hash) => {
-        for(let i in hash)
-            if(isBreakpoint(i)) return hash[i]
+        for (let i in hash) if (isBreakpoint(i)) return hash[i]
         return hash['default']
     }
 
     const getCustomBreakpoint = (breakpointHash) => {
         const matchedKey = Object.keys(breakpointHash)
             .map(Number)
-            .filter(bp => innerWidth >= bp)
+            .filter((bp) => innerWidth >= bp)
             .sort((a, b) => b - a)[0]
         return breakpointHash[matchedKey] || null
     }
 
     const getLayoutConstraints = () => {
         return {
-            canToggleFullscreen: data.getSettings().templateSettings.fullscreenEnabled && !isMobileLayout() && !utils.device.isIOS() && !utils.device.isSafari(),
-            shouldAddFooterOffset: utils.device.isIOS() && utils.device.isChrome()
+            canToggleFullscreen:
+                data.getSettings().templateSettings.fullscreenEnabled &&
+                !isMobileLayout() &&
+                !utils.device.isIOS() &&
+                !utils.device.isSafari(),
+            shouldAddFooterOffset: utils.device.isIOS() && utils.device.isChrome(),
         }
     }
 
     const copyToClipboard = async (text) => {
-        if(isCopiedToClipboard(text))
-            return
+        if (isCopiedToClipboard(text)) return
 
         if (navigator.clipboard && window.isSecureContext) {
             await navigator.clipboard.writeText(text)
@@ -114,10 +118,10 @@ function ViewportProvider({ children }) {
             return
         }
 
-        const textArea = document.createElement("textarea")
+        const textArea = document.createElement('textarea')
         textArea.value = text
-        textArea.style.position = "absolute"
-        textArea.style.visibility = "hidden"
+        textArea.style.position = 'absolute'
+        textArea.style.visibility = 'hidden'
         document.body.append(textArea)
         textArea.select()
 
@@ -125,9 +129,8 @@ function ViewportProvider({ children }) {
             document.execCommand('copy')
             window.lastCopiedToClipboardText = text
             setClipboardText(text)
-        }
-        catch (error) {}
-        finally {
+        } catch (error) {
+        } finally {
             textArea.remove()
         }
     }
@@ -137,25 +140,25 @@ function ViewportProvider({ children }) {
     }
 
     return (
-        <ViewportContext.Provider value={{
-            scrollX,
-            scrollY,
-            innerWidth,
-            innerHeight,
+        <ViewportContext.Provider
+            value={{
+                scrollX,
+                scrollY,
+                innerWidth,
+                innerHeight,
 
-            isBreakpoint,
-            getBreakpoint,
-            isMobileLayout,
-            isDesktopLayout,
-            getValueFromBreakpointHash,
-            getLayoutConstraints,
-            getCustomBreakpoint,
-            copyToClipboard,
-            isCopiedToClipboard
-        }}>
-            {didCreateListeners && (
-                <>{children}</>
-            )}
+                isBreakpoint,
+                getBreakpoint,
+                isMobileLayout,
+                isDesktopLayout,
+                getValueFromBreakpointHash,
+                getLayoutConstraints,
+                getCustomBreakpoint,
+                copyToClipboard,
+                isCopiedToClipboard,
+            }}
+        >
+            {didCreateListeners && <>{children}</>}
         </ViewportContext.Provider>
     )
 }

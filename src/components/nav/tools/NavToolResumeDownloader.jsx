@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import {useLanguage} from "/src/providers/LanguageProvider.jsx"
-import {useUtils} from "/src/hooks/utils.js"
-import OptionPickerButton from "/src/components/buttons/OptionPickerButton.jsx"
-import {useData} from "/src/providers/DataProvider.jsx"
-import {useFeedbacks} from "/src/providers/FeedbacksProvider.jsx"
+import React, { useEffect, useState } from 'react'
+import { useLanguage } from '/src/providers/LanguageProvider.jsx'
+import { useUtils } from '/src/hooks/utils.js'
+import OptionPickerButton from '/src/components/buttons/OptionPickerButton.jsx'
+import { useData } from '/src/providers/DataProvider.jsx'
+import { useFeedbacks } from '/src/providers/FeedbacksProvider.jsx'
 
 function NavToolResumeDownloader() {
     const language = useLanguage()
@@ -13,21 +13,23 @@ function NavToolResumeDownloader() {
 
     const profile = data.getProfile()
     const resumeUrl = profile.resumePdfUrl
-    const id = "download_resume"
-    const tooltip = language.getString("download_resume")
+    const id = 'download_resume'
+    const tooltip = language.getString('download_resume')
 
-    const options = [{
-        id: id,
-        faIcon: "fa-solid fa-file-arrow-down",
-        label: tooltip
-    }]
+    const options = [
+        {
+            id: id,
+            faIcon: 'fa-solid fa-file-arrow-down',
+            label: tooltip,
+        },
+    ]
 
     const _onClick = () => {
-        if(!resumeUrl) {
+        if (!resumeUrl) {
             feedbacks.displayNotification(
-                language.getString("error"),
-                language.getString("error_file_not_found"),
-                "error"
+                language.getString('error'),
+                language.getString('error_file_not_found'),
+                'error'
             )
             return
         }
@@ -36,11 +38,13 @@ function NavToolResumeDownloader() {
     }
 
     return (
-        <OptionPickerButton mode={OptionPickerButton.Modes.MODE_BUTTON}
-                            options={options}
-                            selectedOptionId={id}
-                            onOptionSelected={_onClick}
-                            tooltipLabel={tooltip}/>
+        <OptionPickerButton
+            mode={OptionPickerButton.Modes.MODE_BUTTON}
+            options={options}
+            selectedOptionId={id}
+            onOptionSelected={_onClick}
+            tooltipLabel={tooltip}
+        />
     )
 }
 

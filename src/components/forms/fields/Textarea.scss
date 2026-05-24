@@ -1,6 +1,7 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
-textarea.form-textarea, textarea.form-textarea:focus {
+textarea.form-textarea,
+textarea.form-textarea:focus {
     --min-height: 200px;
     --padding: 1rem;
     @include media-breakpoint-down(xl) {
@@ -25,6 +26,6 @@ textarea.form-textarea, textarea.form-textarea:focus {
 }
 
 textarea.form-textarea-focused {
-    background-color: var(--form-focus-background-color)!important;
-    color: var(--form-focus-color)!important;
+    background-color: var(--form-focus-background-color) !important;
+    color: var(--form-focus-color) !important;
 }

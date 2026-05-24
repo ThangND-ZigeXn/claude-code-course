@@ -1,0 +1,66 @@
+@import '/src/styles/extend.scss';
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 12px auto 16px;
+    padding: 8px 14px;
+    gap: 10px;
+    border-radius: $standard-border-radius;
+    border: 2px solid var(--theme-card-background);
+    background-color: var(--theme-boards-background);
+    box-sizing: border-box;
+
+    @include media-breakpoint-down(md) {
+        border-width: 1px;
+    }
+
+    .search-bar-icon {
+        color: var(--theme-texts-light-2);
+        flex-shrink: 0;
+        font-size: 0.85rem;
+    }
+
+    .search-bar-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--theme-texts-light-1);
+        font-size: 0.9rem;
+        min-width: 0;
+
+        &::placeholder {
+            color: var(--theme-texts-light-2);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--theme-primary);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    }
+
+    .search-bar-clear {
+        border: none;
+        background: transparent;
+        color: var(--theme-texts-light-2);
+        cursor: pointer;
+        font-size: 1.2rem;
+        line-height: 1;
+        padding: 0 2px;
+        flex-shrink: 0;
+
+        &:hover {
+            color: var(--theme-texts-light-1);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--theme-primary);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    }
+}

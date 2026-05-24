@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-stack-items {
     --grid-template-columns: repeat(6, 1fr);
@@ -61,21 +61,21 @@ div.article-stack-item {
 div.article-stack-item-avatar {
     width: var(--avatar-size);
     height: var(--avatar-size);
-    font-size: calc(var(--avatar-size)*0.7);
+    font-size: calc(var(--avatar-size) * 0.7);
     border-radius: 100%;
     background-color: transparent;
     color: var(--theme-primary);
 }
 
 div.article-stack-item-title {
-    font-size: calc(var(--avatar-size)*0.20);
+    font-size: calc(var(--avatar-size) * 0.2);
     margin-top: 8px;
     text-align: center;
     color: var(--theme-texts-light);
 }
 
 div.article-stack-item-experience {
-    font-size: calc(var(--avatar-size)*0.19);
+    font-size: calc(var(--avatar-size) * 0.19);
     text-align: center;
     color: var(--theme-texts-light-3);
 }

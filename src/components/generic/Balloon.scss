@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.balloon {
     display: flex;
@@ -28,7 +28,7 @@ div.balloon-triangle {
 
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid  var(--theme-boards-background);
+    border-top: 10px solid var(--theme-boards-background);
 }
 
 div.balloon-quote {

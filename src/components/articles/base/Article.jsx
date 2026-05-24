@@ -1,6 +1,6 @@
-import "./Article.scss"
-import React, {useEffect, useState} from 'react'
-import CategoryFilter from "/src/components/generic/CategoryFilter.jsx"
+import './Article.scss'
+import React, { useEffect, useState } from 'react'
+import CategoryFilter from '/src/components/generic/CategoryFilter.jsx'
 
 /**
  * @param {*} children
@@ -14,7 +14,17 @@ import CategoryFilter from "/src/components/generic/CategoryFilter.jsx"
  * @return {JSX.Element}
  * @constructor
  */
-function Article({ children, id, type, dataWrapper, className = "", selectedItemCategoryId, setSelectedItemCategoryId, forceHideTitle = false }) {
+function Article({
+    children,
+    id,
+    type,
+    dataWrapper,
+    className = '',
+    selectedItemCategoryId,
+    setSelectedItemCategoryId,
+    forceHideTitle = false,
+    searchBarSlot = null,
+}) {
     useEffect(() => {
         const loadedState = _loadState()
         if (dataWrapper.categories.length > 0 && !selectedItemCategoryId) {
@@ -23,8 +33,7 @@ function Article({ children, id, type, dataWrapper, className = "", selectedItem
     }, [null])
 
     useEffect(() => {
-        if(!selectedItemCategoryId)
-            return
+        if (!selectedItemCategoryId) return
 
         _saveState(selectedItemCategoryId)
     }, [selectedItemCategoryId])
@@ -41,17 +50,21 @@ function Article({ children, id, type, dataWrapper, className = "", selectedItem
 
     return (
         <article className={`article ${type} ${className}`}>
-            {(dataWrapper.locales.title && !forceHideTitle) && (
-                <ArticleTitle title={dataWrapper.locales.title}/>
+            {dataWrapper.locales.title && !forceHideTitle && (
+                <ArticleTitle title={dataWrapper.locales.title} />
             )}
 
             <ArticleContent>
                 {dataWrapper.categories.length > 0 && (
-                    <CategoryFilter categories={dataWrapper.categories}
-                                    selectedCategoryId={selectedItemCategoryId}
-                                    setSelectedCategoryId={setSelectedItemCategoryId}
-                                    className={`article-category-filter`}/>
+                    <CategoryFilter
+                        categories={dataWrapper.categories}
+                        selectedCategoryId={selectedItemCategoryId}
+                        setSelectedCategoryId={setSelectedItemCategoryId}
+                        className={`article-category-filter`}
+                    />
                 )}
+
+                {searchBarSlot}
 
                 {children}
             </ArticleContent>
@@ -63,25 +76,24 @@ function ArticleTitle({ title }) {
     return (
         <h4 className={`article-title`}>
             <span className={`article-title-prefix eq-h3 ms-1 me-2 pe-1`}>|</span>
-            <span className={`article-title-text mb-0`} dangerouslySetInnerHTML={{__html: title}}/>
+            <span
+                className={`article-title-text mb-0`}
+                dangerouslySetInnerHTML={{ __html: title }}
+            />
         </h4>
     )
 }
 
 function ArticleContent({ children }) {
-    return (
-        <div className={`article-content text-4`}>
-            {children}
-        </div>
-    )
+    return <div className={`article-content text-4`}>{children}</div>
 }
 
 /**
  * @enum
  */
 Article.Types = {
-    SPACING_DEFAULT: "article-spacing-default",
-    SPACING_SMALL: "article-spacing-small"
+    SPACING_DEFAULT: 'article-spacing-default',
+    SPACING_SMALL: 'article-spacing-small',
 }
 
 export default Article

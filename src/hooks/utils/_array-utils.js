@@ -12,8 +12,7 @@ export const _arrayUtils = {
     hasDuplications: (array, key) => {
         const seen = new Set()
         for (const item of array) {
-            if (seen.has(item[key]))
-                return true
+            if (seen.has(item[key])) return true
 
             seen.add(item[key])
         }
@@ -25,11 +24,12 @@ export const _arrayUtils = {
      * @return {String}
      */
     toHtmlList: (array) => {
-        if(!array.length)
-            return ``
+        if (!array.length) return ``
 
         let list = `<ul class="list-style-none">`
-        array.forEach(item => { list += `<li>${item}</li>` })
+        array.forEach((item) => {
+            list += `<li>${item}</li>`
+        })
         return list + `</ul>`
     },
 
@@ -40,8 +40,8 @@ export const _arrayUtils = {
      * @return {*}
      */
     withId: (array, itemId, fallbackId) => {
-        const item = array.find(item => item.id === itemId)
-        if(item) return item
-        return array.find(item => item.id === fallbackId)
-    }
+        const item = array.find((item) => item.id === itemId)
+        if (item) return item
+        return array.find((item) => item.id === fallbackId)
+    },
 }

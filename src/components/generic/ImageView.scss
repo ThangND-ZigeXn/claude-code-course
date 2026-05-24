@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.image-view {
     display: flex;
@@ -15,7 +15,8 @@ img.image-view-img {
     height: 100%;
 }
 
-div.image-view-spinner-wrapper, div.image-view-error-wrapper {
+div.image-view-spinner-wrapper,
+div.image-view-error-wrapper {
     position: absolute;
     background-color: var(--theme-dark);
     color: var(--theme-texts);
@@ -31,5 +32,7 @@ div.image-view-spinner-wrapper, div.image-view-error-wrapper {
 div.image-view-error-wrapper {
     font-size: 30px;
     color: var(--theme-texts);
-    i { opacity: 0.3; }
+    i {
+        opacity: 0.3;
+    }
 }

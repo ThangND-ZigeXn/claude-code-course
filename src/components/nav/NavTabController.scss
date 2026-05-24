@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 nav.nav-tab-controller {
     position: fixed;
@@ -31,7 +31,7 @@ a.nav-tab-controller-link {
     flex-direction: column;
     transition: 0.1s padding-bottom ease-out;
     border: 0;
-    outline: none!important;
+    outline: none !important;
 
     background-color: var(--theme-mobile-nav-background);
     border-top: 3px solid var(--theme-mobile-nav-border);
@@ -64,16 +64,16 @@ a.nav-tab-controller-link:hover {
 }
 
 a.nav-tab-controller-link-active {
-    background-color: var(--theme-mobile-nav-selected-background)!important;
+    background-color: var(--theme-mobile-nav-selected-background) !important;
     border-top-color: var(--theme-mobile-nav-selected-border);
 
     i {
-        color: var(--theme-mobile-nav-selected)!important;
+        color: var(--theme-mobile-nav-selected) !important;
         opacity: 1;
     }
 
     span {
-        color: var(--theme-mobile-nav-selected)!important;
+        color: var(--theme-mobile-nav-selected) !important;
         opacity: 1;
     }
 }

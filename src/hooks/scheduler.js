@@ -14,7 +14,7 @@ export const useScheduler = () => {
      */
     const schedule = (callback, timeInMilliseconds, tag) => {
         const timeoutId = setTimeout(callback, timeInMilliseconds)
-        timeouts.push({id: timeoutId, tag: tag})
+        timeouts.push({ id: timeoutId, tag: tag })
     }
 
     /**
@@ -24,7 +24,7 @@ export const useScheduler = () => {
      */
     const interval = (callback, timeInMilliseconds, tag) => {
         const intervalId = setInterval(callback, timeInMilliseconds)
-        intervals.push({id: intervalId, tag: tag})
+        intervals.push({ id: intervalId, tag: tag })
     }
 
     /**
@@ -32,7 +32,7 @@ export const useScheduler = () => {
      * @param {String} [tag]
      */
     const dispatchOnNextFrame = (callback, tag) => {
-        tag = tag || "dispatch-on-next-frame"
+        tag = tag || 'dispatch-on-next-frame'
         clearAllWithTag(tag)
         schedule(callback, 35, tag)
     }
@@ -60,11 +60,11 @@ export const useScheduler = () => {
      * @return {void}
      */
     const clearAll = () => {
-        timeouts.forEach(timeout => {
+        timeouts.forEach((timeout) => {
             clearTimeout(timeout.id)
         })
 
-        intervals.forEach(interval => {
+        intervals.forEach((interval) => {
             clearInterval(interval.id)
         })
 
@@ -77,6 +77,6 @@ export const useScheduler = () => {
         interval,
         dispatchOnNextFrame,
         clearAllWithTag,
-        clearAll
+        clearAll,
     }
 }

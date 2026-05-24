@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 #youtube-video-modal {
     div.modal-dialog {
@@ -24,7 +24,7 @@
 }
 
 div.youtube-modal-body {
-    padding: 0!important;
+    padding: 0 !important;
     background-color: black;
     width: 100%;
     aspect-ratio: 16/9;

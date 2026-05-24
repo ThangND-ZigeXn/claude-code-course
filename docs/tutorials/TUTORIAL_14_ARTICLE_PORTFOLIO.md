@@ -125,6 +125,158 @@ Each item of `ArticlePortfolio` represents a project.
 >
 > **Note 2:** Required and recommended fields must be present **at least** in the default language.
 
+## My Configuration
+
+Below is the `ArticlePortfolio` article used in this portfolio's `portfolio.json`, with 6 real projects:
+
+```json
+{
+    "id": 1,
+    "component": "ArticlePortfolio",
+    "locales": {
+        "en": {
+            "category_all": "All",
+            "category_apps": "Apps",
+            "category_web": "Web",
+            "category_utilities": "Utilities"
+        }
+    },
+    "settings": {
+        "categorize_by": ["category_apps", "category_web", "category_utilities"],
+        "order_items_by": "id",
+        "order_items_sort": "asc"
+    },
+    "items": [
+        {
+            "id": 1,
+            "categoryId": "category_web",
+            "faIcon": "fa-solid fa-magnifying-glass-chart",
+            "faIconColors": {"bg": "#005571", "fill": "#FFFFFF"},
+            "preview": {
+                "links": [
+                    {"href": "https://github.com", "tooltipString": "see_on_github", "faIcon": "fa-brands fa-github"}
+                ],
+                "screenshots": [],
+                "screenshotsAspectRatio": "16:9",
+                "youtubeVideo": ""
+            },
+            "locales": {
+                "en": {
+                    "title": "Job Search Portal",
+                    "text": "A full-stack job listing platform built with Ruby on Rails and Next.js, featuring Elasticsearch and Solr-powered smart search with faceted filtering by location, salary, and skills.",
+                    "tags": ["Ruby on Rails", "Next.js", "Elasticsearch", "Solr"]
+                }
+            }
+        },
+        {
+            "id": 2,
+            "categoryId": "category_web",
+            "faIcon": "fa-solid fa-store",
+            "faIconColors": {"bg": "#CC0000", "fill": "#FFFFFF"},
+            "preview": {
+                "links": [
+                    {"href": "https://github.com", "tooltipString": "see_on_github", "faIcon": "fa-brands fa-github"}
+                ],
+                "screenshots": [],
+                "screenshotsAspectRatio": "16:9",
+                "youtubeVideo": ""
+            },
+            "locales": {
+                "en": {
+                    "title": "E-Commerce Platform",
+                    "text": "A multi-vendor e-commerce web application powered by Ruby on Rails and MySQL, with product catalog management, order processing, payment integration, and an admin dashboard.",
+                    "tags": ["Ruby on Rails", "MySQL", "REST API", "Web"]
+                }
+            }
+        },
+        {
+            "id": 3,
+            "categoryId": "category_web",
+            "faIcon": "fa-solid fa-house-chimney",
+            "faIconColors": {"bg": "#4285F4", "fill": "#FFFFFF"},
+            "preview": {
+                "links": [
+                    {"href": "https://github.com", "tooltipString": "see_on_github", "faIcon": "fa-brands fa-github"}
+                ],
+                "screenshots": [],
+                "screenshotsAspectRatio": "16:9",
+                "youtubeVideo": ""
+            },
+            "locales": {
+                "en": {
+                    "title": "Real Estate Listings",
+                    "text": "A property listing platform built with Next.js and MySQL, deployed on Google Cloud. Features map-based search, property detail pages, and an agent contact system with SSR for SEO.",
+                    "tags": ["Next.js", "MySQL", "Google Cloud", "SSR"]
+                }
+            }
+        },
+        {
+            "id": 4,
+            "categoryId": "category_utilities",
+            "faIcon": "fa-solid fa-users-gear",
+            "faIconColors": {"bg": "#512BD4", "fill": "#FFFFFF"},
+            "preview": {
+                "links": [
+                    {"href": "https://github.com", "tooltipString": "see_on_github", "faIcon": "fa-brands fa-github"}
+                ],
+                "screenshots": [],
+                "screenshotsAspectRatio": "16:9",
+                "youtubeVideo": ""
+            },
+            "locales": {
+                "en": {
+                    "title": "HR Management System",
+                    "text": "An enterprise HR tool built with .NET (ASP.NET Core) and SQL Server, covering employee records, leave management, payroll tracking, and role-based access control for department managers.",
+                    "tags": [".NET", "SQL Server", "Enterprise", "REST API"]
+                }
+            }
+        },
+        {
+            "id": 5,
+            "categoryId": "category_apps",
+            "faIcon": "fa-solid fa-calendar-check",
+            "faIconColors": {"bg": "#00D8FF", "fill": "#1A1A2E"},
+            "preview": {
+                "links": [
+                    {"href": "https://github.com", "tooltipString": "see_on_github", "faIcon": "fa-brands fa-github"}
+                ],
+                "screenshots": [],
+                "screenshotsAspectRatio": "9:16",
+                "youtubeVideo": ""
+            },
+            "locales": {
+                "en": {
+                    "title": "Booking Mobile App",
+                    "text": "A cross-platform mobile booking application built with React Native, backed by a Ruby on Rails API. Users can browse services, book appointments, receive push notifications, and manage reservations on the go.",
+                    "tags": ["React Native", "Ruby on Rails", "Mobile", "iOS", "Android"]
+                }
+            }
+        },
+        {
+            "id": 6,
+            "categoryId": "category_utilities",
+            "faIcon": "fa-solid fa-boxes-stacked",
+            "faIconColors": {"bg": "#CC2927", "fill": "#FFFFFF"},
+            "preview": {
+                "links": [
+                    {"href": "https://github.com", "tooltipString": "see_on_github", "faIcon": "fa-brands fa-github"}
+                ],
+                "screenshots": [],
+                "screenshotsAspectRatio": "16:9",
+                "youtubeVideo": ""
+            },
+            "locales": {
+                "en": {
+                    "title": "Inventory Dashboard",
+                    "text": "A web-based inventory management system built with Ruby on Rails and SQL Server, supporting warehouse stock tracking, supplier management, low-stock alerts, and exportable reports via a clean admin interface.",
+                    "tags": ["Ruby on Rails", "SQL Server", "Dashboard", "Reporting"]
+                }
+            }
+        }
+    ]
+}
+```
+
 ## Next Steps
 Ready to keep going? Check out the next tutorial or revisit the previous one if you need a refresher:
 

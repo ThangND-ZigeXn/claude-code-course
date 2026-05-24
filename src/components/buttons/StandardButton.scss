@@ -1,7 +1,8 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 button.standard-button {
-    i, span {
+    i,
+    span {
         user-select: none;
         pointer-events: none;
     }
@@ -23,7 +24,7 @@ button.standard-button-large-size {
         --font-size: 0.9rem;
     }
 
-    border-radius: 4rem!important;
+    border-radius: 4rem !important;
     font-weight: 400;
     text-transform: uppercase;
     padding: var(--padding);

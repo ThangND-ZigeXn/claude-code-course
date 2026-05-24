@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 $spacing-between-items: 15px;
 $item-padding: 5px;
@@ -20,7 +20,7 @@ li.article-inline-list-item {
     }
 
     &:not(:last-child)::after {
-        content: "𐄁";
+        content: '𐄁';
         color: var(--theme-muted);
         margin-left: $spacing-between-items;
         margin-top: 4px;
@@ -46,7 +46,7 @@ i.article-inline-list-item-icon {
     width: 28px;
     height: 28px;
     @include media-breakpoint-down(sm) {
-        margin: 0 calc($item-padding - 3px)
+        margin: 0 calc($item-padding - 3px);
     }
 }
 

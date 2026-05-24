@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 #confirmation-window {
     div.modal-content {
@@ -7,13 +7,13 @@
 
     div.modal-header {
         background-color: var(--theme-card-background);
-        border: none!important;
+        border: none !important;
     }
 
     div.modal-body {
         text-align: center;
         padding: 20px 15px;
-        color: var(--theme-texts-2)
+        color: var(--theme-texts-2);
     }
 
     div.confirmation-window-menu {

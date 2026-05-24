@@ -4,10 +4,10 @@
  * @description This hook provides methods to parse and validate data loaded from JSON files.
  */
 
-import {useViewport} from "/src/providers/ViewportProvider.jsx"
-import {useLanguage} from "/src/providers/LanguageProvider.jsx"
-import {useTheme} from "/src/providers/ThemeProvider.jsx"
-import ArticleDataWrapper from "/src/hooks/models/ArticleDataWrapper.js"
+import { useViewport } from '/src/providers/ViewportProvider.jsx'
+import { useLanguage } from '/src/providers/LanguageProvider.jsx'
+import { useTheme } from '/src/providers/ThemeProvider.jsx'
+import ArticleDataWrapper from '/src/hooks/models/ArticleDataWrapper.js'
 
 export const useParser = () => {
     const viewport = useViewport()
@@ -19,22 +19,19 @@ export const useParser = () => {
      * @return {{prefix: String|null, title: String, navTitle: String}}
      */
     const parseSectionTitle = (section) => {
-        const isLgOrHigher = viewport.isBreakpoint("lg")
+        const isLgOrHigher = viewport.isBreakpoint('lg')
         const titleLocales = section.data?.title?.locales || {}
 
         return {
-            title:
-                isLgOrHigher ?
-                language.getTranslation(titleLocales, "title_long") :
-                language.getTranslation(titleLocales, "title_short"),
+            title: isLgOrHigher
+                ? language.getTranslation(titleLocales, 'title_long')
+                : language.getTranslation(titleLocales, 'title_short'),
 
-            prefix:
-                isLgOrHigher ?
-                language.getTranslation(titleLocales, "title_long_prefix") :
-                null,
+            prefix: isLgOrHigher
+                ? language.getTranslation(titleLocales, 'title_long_prefix')
+                : null,
 
-            navTitle:
-                language.getTranslation(titleLocales, "title_short_nav")
+            navTitle: language.getTranslation(titleLocales, 'title_short_nav'),
         }
     }
 
@@ -51,6 +48,6 @@ export const useParser = () => {
 
     return {
         parseSectionTitle,
-        parseSectionArticles
+        parseSectionArticles,
     }
 }

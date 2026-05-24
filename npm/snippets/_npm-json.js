@@ -2,9 +2,9 @@
  * @author Ryan Balieiro
  * @description Handy utilities to help manage JSON files within your npm scripts.
  */
-import {useNpmLogger} from "./_npm-log.js"
-import path from "path"
-import fs from "fs"
+import { useNpmLogger } from './_npm-log.js'
+import path from 'path'
+import fs from 'fs'
 
 const logger = useNpmLogger()
 const baseDir = process.cwd()
@@ -18,8 +18,11 @@ export const useNpmJsonUtils = () => {
         let jsonData = {}
         const evaluation = evaluatePath(jsonPath)
 
-        if(!evaluation.fileExists) {
-            logger.log(logger.LogTypes.WARNING, `Couldn't find JSON file: ${jsonPath}. Returning empty object instead.`)
+        if (!evaluation.fileExists) {
+            logger.log(
+                logger.LogTypes.WARNING,
+                `Couldn't find JSON file: ${jsonPath}. Returning empty object instead.`
+            )
             return jsonData
         }
 
@@ -39,15 +42,17 @@ export const useNpmJsonUtils = () => {
     const create = (jsonPath, jsonData) => {
         const evaluation = evaluatePath(jsonPath)
         if (evaluation.fileExists) {
-            logger.log(logger.LogTypes.WARNING, `JSON file already exists: ${jsonPath}. Creation skipped.`)
+            logger.log(
+                logger.LogTypes.WARNING,
+                `JSON file already exists: ${jsonPath}. Creation skipped.`
+            )
             return
         }
 
         try {
             fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 4))
             logger.log(logger.LogTypes.SUCCESS, `Created new JSON file: ${jsonPath}`)
-        }
-        catch (err) {
+        } catch (err) {
             logger.log(logger.LogTypes.WARNING, `Error creating JSON: ${jsonPath}`)
         }
     }
@@ -58,7 +63,7 @@ export const useNpmJsonUtils = () => {
      */
     const save = (jsonPath, jsonData) => {
         const evaluation = evaluatePath(jsonPath)
-        if(!evaluation.fileExists) {
+        if (!evaluation.fileExists) {
             logger.log(logger.LogTypes.WARNING, `Couldn't find JSON file: ${jsonPath}.`)
             return
         }
@@ -66,8 +71,7 @@ export const useNpmJsonUtils = () => {
         try {
             fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 4))
             logger.log(logger.LogTypes.SUCCESS, `Updated JSON file: ${jsonPath}`)
-        }
-        catch (err) {
+        } catch (err) {
             logger.log(logger.LogTypes.WARNING, `Error saving JSON: ${jsonPath}`)
         }
     }
@@ -78,11 +82,9 @@ export const useNpmJsonUtils = () => {
      */
     const update = (jsonPath, newValues) => {
         const jLoaded = open(jsonPath)
-        if(!jLoaded)
-            return
+        if (!jLoaded) return
 
-        for(let field in newValues)
-            jLoaded[field] = newValues[field]
+        for (let field in newValues) jLoaded[field] = newValues[field]
         save(jsonPath, jLoaded)
     }
 
@@ -92,8 +94,7 @@ export const useNpmJsonUtils = () => {
      */
     const overwrite = (jsonPath, newValues) => {
         const jLoaded = open(jsonPath)
-        if(!jLoaded)
-            return
+        if (!jLoaded) return
         save(jsonPath, newValues)
     }
 
@@ -104,7 +105,7 @@ export const useNpmJsonUtils = () => {
     const evaluatePath = (jsonPath) => {
         const resolvedPath = path.resolve(baseDir, jsonPath)
         const fileExists = fs.existsSync(resolvedPath)
-        return {jsonPath, resolvedPath, fileExists}
+        return { jsonPath, resolvedPath, fileExists }
     }
 
     return {

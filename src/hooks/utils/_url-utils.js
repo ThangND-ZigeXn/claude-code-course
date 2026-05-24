@@ -26,7 +26,7 @@ export const _urlUtils = {
      * @param {String} url
      */
     open: (url) => {
-        window.open(url, "_blank")
+        window.open(url, '_blank')
     },
 
     /**
@@ -37,5 +37,5 @@ export const _urlUtils = {
         const urlObj = new URL(youtubeRawUrl)
         const videoId = urlObj.searchParams.get('v')
         return `https://www.youtube.com/embed/${videoId}`
-    }
+    },
 }
