@@ -1,4 +1,4 @@
-@import "/src/styles/extend.scss";
+@import '/src/styles/extend.scss';
 
 div.article-portfolio-items {
     --item-gap: 40px;
@@ -26,7 +26,8 @@ div.article-portfolio-items {
 }
 
 /** ---------- 2 ITEMS PER ROW ---------------- */
-div.article-portfolio-items-2-per-row, div.article-portfolio-items-3-per-row {
+div.article-portfolio-items-2-per-row,
+div.article-portfolio-items-3-per-row {
     grid-template-columns: repeat(2, 1fr);
 }
 
@@ -54,18 +55,18 @@ div.article-portfolio-item-avatar {
     height: var(--avatar-size);
     border: var(--avatar-border-size) solid var(--theme-boards-background);
     border-radius: 100%;
-    font-size: calc(var(--avatar-size)/2.3);
+    font-size: calc(var(--avatar-size) / 2.3);
 
     position: absolute;
-    top: calc(var(--avatar-size)*-0.13);
-    right: calc(var(--avatar-size)*-0.13);
+    top: calc(var(--avatar-size) * -0.13);
+    right: calc(var(--avatar-size) * -0.13);
 }
 
 div.article-portfolio-item-title {
     display: flex;
     flex-direction: column;
     align-items: start;
-    width: calc(100% - var(--avatar-size)*0.83);
+    width: calc(100% - var(--avatar-size) * 0.83);
 
     h5 {
         font-weight: bold;
@@ -92,4 +93,50 @@ div.article-portfolio-item-body {
 
 div.article-portfolio-item-footer {
     margin-top: 10px;
+}
+
+.article-portfolio-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    gap: 16px;
+
+    .article-portfolio-empty-state-message {
+        color: var(--theme-texts-light-2);
+        margin: 0;
+        font-size: 0.95rem;
+
+        strong {
+            color: var(--theme-texts-light-1);
+        }
+    }
+
+    .article-portfolio-empty-state-reset {
+        background-color: var(--theme-primary);
+        color: var(--theme-texts-inv);
+        border: none;
+        border-radius: $standard-border-radius;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
