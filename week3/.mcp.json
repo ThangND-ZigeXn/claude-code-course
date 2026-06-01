@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "n8n-standup": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["mcp-config/standup-mcp-server.js"],
+      "env": {}
+    }
+  }
+}

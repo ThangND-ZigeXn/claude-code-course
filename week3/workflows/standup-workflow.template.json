@@ -1,0 +1,217 @@
+{
+  "name": "Daily Standup AI Agent",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger (Daily 9AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-220, 0]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "standup",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook (run_standup_workflow)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-220, 220],
+      "webhookId": "standup-webhook"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{$env.GH_OWNER || 'ThangND-ZigeXn'}}/{{$env.GH_REPO || 'claude-code-course'}}/commits",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "since",
+              "value": "={{ new Date(Date.now() - 24*60*60*1000).toISOString() }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "User-Agent", "value": "n8n-standup-bot" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "github-fetch",
+      "name": "GitHub: Commits (24h)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, -120],
+      "credentials": {
+        "httpHeaderAuth": { "id": "REPLACE_GITHUB_CRED_ID", "name": "GitHub Token (Header Auth)" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "={{$env.REDMINE_BASE_URL}}/issues.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "assigned_to_id", "value": "me" },
+            { "name": "updated_on", "value": "=>={{ new Date().toISOString().split('T')[0] }}" },
+            { "name": "status_id", "value": "open" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "redmine-fetch",
+      "name": "Redmine: My Issues (today)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [40, 40],
+      "credentials": {
+        "httpHeaderAuth": { "id": "REPLACE_REDMINE_CRED_ID", "name": "Redmine API Key (Header Auth)" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "channelId": {
+          "__rl": true,
+          "value": "REPLACE_SLACK_CHANNEL_ID",
+          "mode": "id"
+        },
+        "returnAll": false,
+        "limit": 50,
+        "filters": {}
+      },
+      "id": "slack-fetch",
+      "name": "Slack: Read Messages (today)",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [40, 200],
+      "credentials": {
+        "slackApi": { "id": "REPLACE_SLACK_CRED_ID", "name": "Slack Bot Token" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "id": "merge-sources",
+      "name": "Merge Sources",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [300, 40]
+    },
+    {
+      "parameters": {
+        "jsItemMode": "runOnceForAllItems",
+        "jsCode": "// Merge & format activity from GitHub + Redmine + Slack into one string\n// Inputs arrive merged; we normalize each source and dedupe.\nconst items = $input.all().map(i => i.json);\n\nconst commits = [];\nconst issues = [];\nconst messages = [];\n\nfor (const it of items) {\n  // GitHub commit shape\n  if (it.commit && it.sha) {\n    commits.push(`#${String(it.sha).slice(0,7)} ${it.commit.message.split('\\n')[0]}`);\n  }\n  // Redmine issues.json returns { issues: [...] }\n  if (Array.isArray(it.issues)) {\n    for (const iss of it.issues) {\n      issues.push(`#${iss.id} [${iss.status?.name || '?'}] ${iss.subject}`);\n    }\n  }\n  // single redmine issue\n  if (it.id && it.subject && it.status) {\n    issues.push(`#${it.id} [${it.status?.name || '?'}] ${it.subject}`);\n  }\n  // Slack message shape\n  if (it.type === 'message' && it.text) {\n    messages.push(it.text.replace(/\\s+/g,' ').trim().slice(0,160));\n  }\n}\n\nconst dedupe = (arr) => [...new Set(arr)].filter(Boolean);\n\nconst activity = [\n  '## GitHub commits (last 24h)',\n  ...(dedupe(commits).length ? dedupe(commits).map(c => '- ' + c) : ['- (none)']),\n  '',\n  '## Redmine issues (assigned to me, updated today)',\n  ...(dedupe(issues).length ? dedupe(issues).map(c => '- ' + c) : ['- (none)']),\n  '',\n  '## Slack messages (today)',\n  ...(dedupe(messages).length ? dedupe(messages).slice(0,15).map(c => '- ' + c) : ['- (none)']),\n].join('\\n');\n\nreturn [{ json: { activity } }];"
+      },
+      "id": "code-merge",
+      "name": "Code: Merge & Format",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 40]
+    },
+    {
+      "parameters": {
+        "connectionMode": "docker",
+        "operation": "executePrompt",
+        "prompt": "=You are a standup assistant. Based on the developer activity below, write a concise daily standup with exactly three sections: Yesterday, Today, Blockers. Use bullet points. Be specific and reference issue/PR numbers. If a section has no data, write a sensible placeholder.\n\nIf you have memory of a previous standup for this developer, you may reference it.\n\n=== ACTIVITY ===\n{{ $json.activity }}\n=== END ACTIVITY ===",
+        "model": "sonnet",
+        "sessionId": "standup-thangnd",
+        "options": {}
+      },
+      "id": "claude-node",
+      "name": "Claude Code: Generate Standup",
+      "type": "n8n-nodes-claude-code-cli.claudeCode",
+      "typeVersion": 1,
+      "position": [740, 40],
+      "credentials": {
+        "claudeCodeDockerApi": { "id": "REPLACE_CLAUDE_CRED_ID", "name": "Claude Code (Docker)" }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "REPLACE_SLACK_CHANNEL_ID",
+          "mode": "id"
+        },
+        "text": "=📋 *Daily Standup — {{ new Date().toISOString().split('T')[0] }}*\n\n{{ $json.output }}",
+        "otherOptions": {}
+      },
+      "id": "slack-post",
+      "name": "Slack: Post Standup",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [960, 40],
+      "credentials": {
+        "slackApi": { "id": "REPLACE_SLACK_CRED_ID", "name": "Slack Bot Token" }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Daily 9AM)": {
+      "main": [[
+        { "node": "GitHub: Commits (24h)", "type": "main", "index": 0 },
+        { "node": "Redmine: My Issues (today)", "type": "main", "index": 0 },
+        { "node": "Slack: Read Messages (today)", "type": "main", "index": 0 }
+      ]]
+    },
+    "Webhook (run_standup_workflow)": {
+      "main": [[
+        { "node": "GitHub: Commits (24h)", "type": "main", "index": 0 },
+        { "node": "Redmine: My Issues (today)", "type": "main", "index": 0 },
+        { "node": "Slack: Read Messages (today)", "type": "main", "index": 0 }
+      ]]
+    },
+    "GitHub: Commits (24h)": {
+      "main": [[{ "node": "Merge Sources", "type": "main", "index": 0 }]]
+    },
+    "Redmine: My Issues (today)": {
+      "main": [[{ "node": "Merge Sources", "type": "main", "index": 1 }]]
+    },
+    "Slack: Read Messages (today)": {
+      "main": [[{ "node": "Merge Sources", "type": "main", "index": 2 }]]
+    },
+    "Merge Sources": {
+      "main": [[{ "node": "Code: Merge & Format", "type": "main", "index": 0 }]]
+    },
+    "Code: Merge & Format": {
+      "main": [[{ "node": "Claude Code: Generate Standup", "type": "main", "index": 0 }]]
+    },
+    "Claude Code: Generate Standup": {
+      "main": [[{ "node": "Slack: Post Standup", "type": "main", "index": 0 }]]
+    }
+  }
+}
