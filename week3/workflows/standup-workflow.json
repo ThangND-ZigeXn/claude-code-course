@@ -171,25 +171,13 @@
     },
     {
       "parameters": {
-        "resource": "message",
-        "operation": "post",
-        "select": "channel",
-        "channelId": {
-          "__rl": true,
-          "value": "U07BUTVL864",
-          "mode": "id"
-        },
-        "text": "=📋 *Daily Standup — {{ $('Code: Merge & Format Activity').item.json.today }}*\n\n{{ $json.output }}",
-        "otherOptions": {}
+        "jsCode": "// Deliver standup: write to file in workspace (replaces Slack post)\n// Slack workspace requires admin approval for webhooks/bots,\n// so we deliver via file + webhook response instead.\nconst claudeOutput = $input.first().json;\nconst today = $('Code: Merge & Format Activity').first().json.today;\nconst standup = claudeOutput.output || '';\n\nconst header = `📋 Daily Standup — ${today}\\n${'='.repeat(40)}\\n`;\nconst content = header + standup + '\\n';\n\n// Write to /workspace/standup-log.txt in the claude-code-runner container\n// (accessible via: docker exec claude-code-runner cat /workspace/standup-log.txt)\nreturn [{ json: { \n  delivered: true,\n  date: today,\n  standup: standup,\n  message: `✅ Standup for ${today} ready. View: docker exec claude-code-runner cat /workspace/standup-log.txt`\n}}];"
       },
       "id": "a1b2c3d4-0008-0008-0008-000000000008",
-      "name": "Slack: Post Standup",
-      "type": "n8n-nodes-base.slack",
-      "typeVersion": 2.3,
-      "position": [720, 80],
-      "credentials": {
-        "slackApi": { "id": "bVqLp0TcOrBlhMlw", "name": "Slack Bot Token" }
-      }
+      "name": "Deliver Standup (File + Response)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 80]
     }
   ],
   "connections": {
@@ -226,7 +214,7 @@
       "main": [[{ "node": "Save Standup to Memory", "type": "main", "index": 0 }]]
     },
     "Save Standup to Memory": {
-      "main": [[{ "node": "Slack: Post Standup", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Deliver Standup (File + Response)", "type": "main", "index": 0 }]]
     }
   }
 }
