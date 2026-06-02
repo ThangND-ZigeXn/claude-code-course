@@ -116,7 +116,7 @@
       "typeVersion": 2.3,
       "position": [-40, 240],
       "credentials": {
-        "slackApi": { "id": "QZNUvREza76cysko", "name": "Slack Bot Token" }
+        "slackApi": { "id": "bVqLp0TcOrBlhMlw", "name": "Slack Bot Token" }
       },
       "onError": "continueRegularOutput"
     },
@@ -188,7 +188,7 @@
       "typeVersion": 2.3,
       "position": [720, 80],
       "credentials": {
-        "slackApi": { "id": "QZNUvREza76cysko", "name": "Slack Bot Token" }
+        "slackApi": { "id": "bVqLp0TcOrBlhMlw", "name": "Slack Bot Token" }
       }
     }
   ],
