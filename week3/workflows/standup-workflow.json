@@ -1,0 +1,220 @@
+{
+  "name": "Daily Standup AI Agent",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1-5"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000001",
+      "name": "Schedule Trigger (Daily 9AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-320, 80]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "standup",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0002-0002-0002-000000000002",
+      "name": "Webhook (run_standup_workflow)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-320, 280],
+      "webhookId": "standup-webhook-thangnd"
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/ThangND-ZigeXn/claude-code-course/commits",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "since",
+              "value": "={{ new Date(Date.now() - 24*60*60*1000).toISOString() }}"
+            },
+            {
+              "name": "per_page",
+              "value": "30"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "User-Agent", "value": "n8n-standup-bot" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0003-0003-0003-000000000003",
+      "name": "GitHub: Commits (24h)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-40, -80],
+      "credentials": {
+        "httpHeaderAuth": { "id": "9CHoRbtPav7E7dlM", "name": "GitHub Token" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "https://dev.zigexn.vn/issues.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "assigned_to_id", "value": "me" },
+            { "name": "status_id", "value": "open" },
+            { "name": "limit", "value": "25" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0004-0004-0004-000000000004",
+      "name": "Redmine: My Issues",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-40, 80],
+      "credentials": {
+        "httpHeaderAuth": { "id": "mYqqL98pLtwGsKQ5", "name": "Redmine API Key" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "channelId": {
+          "__rl": true,
+          "value": "U07BUTVL864",
+          "mode": "id"
+        },
+        "returnAll": false,
+        "limit": 30,
+        "filters": {}
+      },
+      "id": "a1b2c3d4-0005-0005-0005-000000000005",
+      "name": "Slack: Read Messages (today)",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [-40, 240],
+      "credentials": {
+        "slackApi": { "id": "bVqLp0TcOrBlhMlw", "name": "Slack Bot Token" }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "append",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0009-0009-0009-000000000009",
+      "name": "Merge All Sources",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [100, 80]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect items from all branches (GitHub, Redmine, Slack)\n// Also loads previous standup from static workflow data for memory context\nconst allItems = $input.all().map(i => i.json);\n\nconst commits = [];\nconst issues = [];\nconst messages = [];\n\nfor (const it of allItems) {\n  // GitHub commit shape: { sha, commit: { message }, html_url, ... }\n  if (it.sha && it.commit) {\n    const msg = (it.commit.message || '').split('\\n')[0].trim();\n    const sha = String(it.sha).slice(0, 7);\n    commits.push(`${sha}: ${msg}`);\n  }\n  // Redmine issues list shape: { issues: [...] }\n  if (Array.isArray(it.issues)) {\n    for (const iss of it.issues) {\n      issues.push(`#${iss.id} [${iss.status?.name || 'open'}] ${iss.subject}`);\n    }\n  }\n  // Slack message shape: { type: 'message', text: '...' }\n  if (it.type === 'message' && it.text) {\n    const txt = it.text.replace(/<[^>]+>/g, '').replace(/\\s+/g, ' ').trim();\n    if (txt.length > 0) messages.push(txt.slice(0, 200));\n  }\n}\n\nconst dedupe = (arr) => [...new Set(arr)].filter(Boolean);\n\nconst today = new Date().toISOString().split('T')[0];\n\nconst activity = [\n  `## GitHub commits (${today}, last 24h)`,\n  ...(dedupe(commits).length ? dedupe(commits).map(c => `- ${c}`) : ['- (no commits in last 24h)']),\n  '',\n  `## Redmine issues (assigned to me, open)`,\n  ...(dedupe(issues).length ? dedupe(issues).map(c => `- ${c}`) : ['- (no open issues assigned)']),\n  '',\n  `## Recent Slack messages`,\n  ...(dedupe(messages).length ? dedupe(messages).slice(0, 10).map(c => `- ${c}`) : ['- (no messages found)']),\n].join('\\n');\n\n// Load previous standup from N8N static workflow data (Window Buffer Memory equivalent)\nconst staticData = $getWorkflowStaticData('global');\nconst previousStandup = staticData.lastStandup || null;\nconst previousDate = staticData.lastStandupDate || null;\n\nreturn [{ json: { activity, today, previousStandup, previousDate } }];"
+      },
+      "id": "a1b2c3d4-0006-0006-0006-000000000006",
+      "name": "Code: Merge & Format Activity",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 80]
+    },
+    {
+      "parameters": {
+        "connectionMode": "docker",
+        "operation": "executePrompt",
+        "prompt": "=You are a daily standup assistant. Based on the developer activity below, write a concise standup report with exactly three sections:\n\n**Yesterday** — what was actually done (from GitHub commits and resolved/in-progress issues)\n**Today** — what to work on next (infer from open issues and WIP items)\n**Blockers** — anything blocked or waiting (look for issues with waiting/blocked status, or mention if none)\n\nRules:\n- Use bullet points within each section\n- Reference issue/PR numbers when available (e.g. #123, commit abc1234)\n- Be specific and concise\n- If a section truly has no data, write one bullet saying \"Nothing to report\"\n- Do NOT include a date header — that will be added separately\n{{ $json.previousStandup ? '\\n=== PREVIOUS STANDUP (' + $json.previousDate + ') ===\\n' + $json.previousStandup + '\\n=== END PREVIOUS STANDUP ===\\n' : '' }}\n=== TODAY\\'S ACTIVITY ===\n{{ $json.activity }}\n=== END ACTIVITY ===",
+        "model": "sonnet",
+        "sessionId": "standup-thangnd",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0007-0007-0007-000000000007",
+      "name": "Claude Code: Generate Standup",
+      "type": "n8n-nodes-claude-code-cli.claudeCode",
+      "typeVersion": 1,
+      "position": [480, 80],
+      "credentials": {
+        "claudeCodeDockerApi": { "id": "rhn7wIl6FrXe5hFM", "name": "Claude Code Docker" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Save current standup to static workflow data (memory persistence)\nconst claudeOutput = $input.first().json;\nconst codeOutput = $('Code: Merge & Format Activity').first().json;\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.lastStandup = claudeOutput.output || '';\nstaticData.lastStandupDate = codeOutput.today || new Date().toISOString().split('T')[0];\n\n// Pass through Claude output unchanged\nreturn [$input.first()];"
+      },
+      "id": "a1b2c3d4-0010-0010-0010-000000000010",
+      "name": "Save Standup to Memory",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 80]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Deliver standup: write to file in workspace (replaces Slack post)\n// Slack workspace requires admin approval for webhooks/bots,\n// so we deliver via file + webhook response instead.\nconst claudeOutput = $input.first().json;\nconst today = $('Code: Merge & Format Activity').first().json.today;\nconst standup = claudeOutput.output || '';\n\nconst header = `📋 Daily Standup — ${today}\\n${'='.repeat(40)}\\n`;\nconst content = header + standup + '\\n';\n\n// Write to /workspace/standup-log.txt in the claude-code-runner container\n// (accessible via: docker exec claude-code-runner cat /workspace/standup-log.txt)\nreturn [{ json: { \n  delivered: true,\n  date: today,\n  standup: standup,\n  message: `✅ Standup for ${today} ready. View: docker exec claude-code-runner cat /workspace/standup-log.txt`\n}}];"
+      },
+      "id": "a1b2c3d4-0008-0008-0008-000000000008",
+      "name": "Deliver Standup (File + Response)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 80]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Daily 9AM)": {
+      "main": [[
+        { "node": "GitHub: Commits (24h)", "type": "main", "index": 0 },
+        { "node": "Redmine: My Issues", "type": "main", "index": 0 },
+        { "node": "Slack: Read Messages (today)", "type": "main", "index": 0 }
+      ]]
+    },
+    "Webhook (run_standup_workflow)": {
+      "main": [[
+        { "node": "GitHub: Commits (24h)", "type": "main", "index": 0 },
+        { "node": "Redmine: My Issues", "type": "main", "index": 0 },
+        { "node": "Slack: Read Messages (today)", "type": "main", "index": 0 }
+      ]]
+    },
+    "GitHub: Commits (24h)": {
+      "main": [[{ "node": "Merge All Sources", "type": "main", "index": 0 }]]
+    },
+    "Redmine: My Issues": {
+      "main": [[{ "node": "Merge All Sources", "type": "main", "index": 1 }]]
+    },
+    "Slack: Read Messages (today)": {
+      "main": [[{ "node": "Merge All Sources", "type": "main", "index": 2 }]]
+    },
+    "Merge All Sources": {
+      "main": [[{ "node": "Code: Merge & Format Activity", "type": "main", "index": 0 }]]
+    },
+    "Code: Merge & Format Activity": {
+      "main": [[{ "node": "Claude Code: Generate Standup", "type": "main", "index": 0 }]]
+    },
+    "Claude Code: Generate Standup": {
+      "main": [[{ "node": "Save Standup to Memory", "type": "main", "index": 0 }]]
+    },
+    "Save Standup to Memory": {
+      "main": [[{ "node": "Deliver Standup (File + Response)", "type": "main", "index": 0 }]]
+    }
+  }
+}

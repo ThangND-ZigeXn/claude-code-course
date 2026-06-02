@@ -1,0 +1,10 @@
+# Docker stack (cloned separately, not part of this repo)
+n8n-nodes-claude-code-cli/
+
+# N8N runtime data
+docker/*/workspace/
+docker/*/claude-config/
+docker/*/mcp-servers/
+
+# Screenshots directory placeholder
+screenshots/.gitkeep
